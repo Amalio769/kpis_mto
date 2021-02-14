@@ -1,0 +1,3 @@
+# COSTES
+* Hasta ahora la orientación del código iba enfocada a obtener reporte por dpto y año. La obtención de los datos agrupados por año no cambia, continúa igual. No tiene sentido solicitar el reporte por dpto.
+* La nueva filosofía va orientada a obtener los datos para un periodo determinado (año) y para un conjunto de PEP, CECOS y PROPUESTAS DE GASTOS (Order). Posteriormente con data studio se filtrará por el PEP, Ceco o Orden.
