@@ -12,31 +12,31 @@ import datetime
 import pandas as pd
 
 year = 2020
-dpto = 'ODRM'
+
 hr301 = 82.19
 hr211 = 70.00
 hr215 = 72.25
 
-#sap.me2k.me2k_year_dpto(year,dpto)
-#sap.zps_capp.zps_capp_year_dpto(year,dpto)
+#sap.me2k.me2k_year(year)
+#sap.zps_capp.zps_capp_year(year)
 
 
-df=datos.combinar_pep_ceco_orden(year, dpto)
+df=datos.combinar_pep_ceco_orden(year)
 df=df.drop_duplicates()
 df['coste_total']=df['coste_total'].div(1000).round(2)
 df['coste_por_entregar']=df['coste_por_entregar'].div(1000).round(2)
 df['coste_por_facturar']=df['coste_por_facturar'].div(1000).round(2)
 df=df.fillna(' ')
 
-datos.df_pco2excel_app(df,year, dpto)
-datos.df_pco2excel_kpisites(df,year, dpto)
+datos.df_pco2excel_app(df,year)
+datos.df_pco2excel_kpisites(df,year)
 
-df1=datos.procesar_allzpscapp2df(year, dpto)
+df1=datos.procesar_allzpscapp2df(year)
 df1['mes']= pd.DatetimeIndex(df1['fecha']).month
 df1['coste']=df1[['ceco','horas']].apply(lambda x: x['horas']*hr301 if x['ceco']==13301410 else (x['horas']*hr211 if x['ceco']==13211410 else x['horas']*hr215),axis=1)
 
-datos.df_zpscapp2excel_app(df,year, dpto)
-datos.df_zpscapp2excel_kpisites(df,year, dpto)
+datos.df_zpscapp2excel_app(df,year)
+datos.df_zpscapp2excel_kpisites(df,year)
 
 
 df_po_gby=df.groupby(['elemento_pep','ceco','mes'], as_index=False).sum()

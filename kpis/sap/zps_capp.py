@@ -12,7 +12,7 @@ import kpis.configuracion.config as cfg
 
 
 #-Sub ------------------------------------------------------------------
-def zps_capp(year, dpto="", ceco="", grafo="", centro="2013",num_personal="",\
+def zps_capp(year, ceco="", grafo="", centro="2013",num_personal="",\
          fecha_desde="",fecha_hasta="",):
    """ Transacción ZPS_CAPP para las imputaciones de horas aprobadas
    
@@ -21,7 +21,7 @@ def zps_capp(year, dpto="", ceco="", grafo="", centro="2013",num_personal="",\
    
 
    path = cfg.PATH_COSTES_GRAFOS
-   file_name=str(year) + '-' + dpto + '-' + ceco + '.txt'
+   file_name=str(year) + '-' + ceco + '.txt'
    if fecha_desde == "":
        fecha_desde="01.01." + str(year)
    if fecha_hasta == "":
@@ -107,17 +107,17 @@ def zps_capp(year, dpto="", ceco="", grafo="", centro="2013",num_personal="",\
       application = None
       SapGuiAuto = None
 #-Sub ------------------------------------------------------------------
-def zps_capp_year_dpto(year,dpto):
-    """ Iteracion de ZPS_CAPP para la configuracion de costes-dpto-year
+def zps_capp_year(year):
+    """ Iteracion de ZPS_CAPP para la configuracion de costes-year
     
     describe
     """
     import kpis.configuracion.config as cfg
     
   
-    with open(cfg.PATH_COSTES_CONFIGURACION + str(year) + '-' + dpto + '-CECO-GRAFO.txt') as f:
+    with open(cfg.PATH_COSTES_CONFIGURACION + str(year) + '-CECO-GRAFO.txt') as f:
         for linea in f:
-            zps_capp(year, dpto, ceco = linea.rstrip())
+            zps_capp(year, ceco = linea.rstrip())
     
 #-Main------------------------------------------------------------------
 

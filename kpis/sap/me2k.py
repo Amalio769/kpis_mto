@@ -14,29 +14,33 @@ from datetime import date
 import kpis.configuracion.config as cfg
 
 #-Sub ------------------------------------------------------------------
-def me2k(year="", dpto="", ceco="", pep="", orden="", centro="2013",\
+def me2k(year="", ceco="", pep="", orden="", centro="2013",\
          fecha_entrega_desde="",fecha_entrega_hasta="",\
          fecha_documento_desde="", fecha_documento_hasta=""):
    """ Transacción ME2K para el PEP solicitado
    
-   Usa la transacción ME2K, con los datos de fecha inicio y fecha
-   final para las PO del PEP indicado y del centro emplazamiento 2013.
-   Los datos los extrae a través del icono de excel situado en SAP, en la 
-   ubicación pasada como parámetro y con el nombre del fichero (sin extensión)
-   también pasado como parámetro.
+   Usa la transacción ME2K, con los datos de year, ceco, pep, orden, centro,
+   fecha_entrega_desde, fecha_entrega_hasta, fecha_documento_desde y 
+   fecha_documento_hasta para las PO con los parámetros indicados.
+   Al menos hay que indicar un Pep/Ceco/Orden, ya que en caso contrario
+   habría un error.
    
    Parámetros:
    -----------
-   fecha_desde : str, con el formato DD.MM.AAAA
-   
-   fecha_hasta : str, con el formato DD.MM.AAAA
-   
-   directorio  : str, path del directorio de destino del fichero
-   
+   year        : int, año
+   ceco        : str, nombre del ceco
    pep         : str, nombre del pep
+   orden       : str, nombre de la orden
+   centro      : str, por defecto 2013 (Puerto Real)
+   fecha_entrega_desde: str, con el formato DD.MM.AAAA
+   fecha_entrega_hasta: str, con el formato DD.MM.AAAA
+   fecha_docuento_desde : str, con el formato DD.MM.AAAA
+   fecha_documento_hasta : str, con el formato DD.MM.AAAA
    """
    
    today = date.today()
+   if year=="":
+       year=format(today.year)
    if ceco != "":
        pep = ""
        orden = ""
@@ -49,16 +53,16 @@ def me2k(year="", dpto="", ceco="", pep="", orden="", centro="2013",\
        ceco = ""
        pep = ""
        path = cfg.PATH_COSTES_ORDEN
-   file_name=str(year) + '-' + dpto + '-' + \
+   file_name=str(year) + '-' + \
                 (ceco + pep + orden).replace('/','-') + '.txt'
    if fecha_entrega_desde == "":
-       fecha_entrega_desde="01.01.{}".format(today.year)
+       fecha_entrega_desde="01.01." + str(year)
    if fecha_entrega_hasta == "":
-       fecha_entrega_hasta="31.12.{}".format(today.year)
+       fecha_entrega_hasta="31.12." + str(year)
    if fecha_documento_desde == "":
-       fecha_documento_desde="01.10.{}".format(today.year-1)
+       fecha_documento_desde="01.10." + str(year - 1)
    if fecha_documento_hasta == "":
-       fecha_documento_hasta="31.12.{}".format(today.year)
+       fecha_documento_hasta="31.12." + str(year)
        
    if ceco=="" and pep=="" and orden=="":
       sys.exit("Error. Hay que elegir al menos un parámetro entre ceco, pep"+ \
@@ -131,35 +135,35 @@ def me2k(year="", dpto="", ceco="", pep="", orden="", centro="2013",\
       SapGuiAuto = None
 
 #-Sub ------------------------------------------------------------------
-def me2k_year_dpto(year,dpto):
-    """ Iteracion de ME2K para la configuracion de costes-dpto-year
+def me2k_year(year):
+    """ Iteracion de ME2K para la configuracion de costes-year
     
     describe
     """
     import kpis.configuracion.config as cfg
     
   
-    with open(cfg.PATH_COSTES_CONFIGURACION + str(year) + '-' + dpto + '-CECO.txt') as f:
+    with open(cfg.PATH_COSTES_CONFIGURACION + str(year) + '-CECO.txt') as f:
         for linea in f:
-            me2k(year, dpto, \
+            me2k(year,\
                  ceco = linea.rstrip(),\
                  fecha_entrega_desde = '01.01.' + str(year),\
                  fecha_entrega_hasta = '31.12.' + str(year),\
                  fecha_documento_desde = '01.10.' + str(year - 1),\
                  fecha_documento_hasta = '31.12.' + str(year))
              
-    with open(cfg.PATH_COSTES_CONFIGURACION + str(year) + '-' + dpto + '-ORDEN.txt') as f:
+    with open(cfg.PATH_COSTES_CONFIGURACION + str(year) + '-ORDEN.txt') as f:
         for linea in f:
-            me2k(year, dpto, \
+            me2k(year,\
                  orden = linea.rstrip(),\
                  fecha_entrega_desde = '01.01.' + str(year),\
                  fecha_entrega_hasta = '31.12.' + str(year),\
                  fecha_documento_desde = '01.10.' + str(year - 1),\
                  fecha_documento_hasta = '31.12.' + str(year))
 
-    with open(cfg.PATH_COSTES_CONFIGURACION + str(year) + '-' + dpto + '-PEP.txt') as f:
+    with open(cfg.PATH_COSTES_CONFIGURACION + str(year) + '-PEP.txt') as f:
         for linea in f:
-            me2k(year, dpto, \
+            me2k(year,\
                  pep = linea.rstrip(),\
                  fecha_entrega_desde = '01.01.' + str(year),\
                  fecha_entrega_hasta = '31.12.' + str(year),\
