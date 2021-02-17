@@ -23,50 +23,37 @@ hr215 = 72.25
 
 df=datos.combinar_pep_ceco_orden(year)
 df=df.drop_duplicates()
-df['coste_total']=df['coste_total'].div(1000).round(2)
-df['coste_por_entregar']=df['coste_por_entregar'].div(1000).round(2)
-df['coste_por_facturar']=df['coste_por_facturar'].div(1000).round(2)
+#df['coste_total']=df['coste_total'].div(1000).round(2)
+#df['coste_por_entregar']=df['coste_por_entregar'].div(1000).round(2)
+#df['coste_por_facturar']=df['coste_por_facturar'].div(1000).round(2)
 df=df.fillna(' ')
+df=df[['ceco', 'centro', 'cl_po', 'coste_por_entregar','coste_por_facturar',
+       'coste_total','descripcion_material', 'elemento_pep','fecha_pedido',
+       'grupo_articulo', 'imputacion', 'material', 'mes','nombre_proveedor',
+       'orden', 'pedido', 'posicion_po']]
+df['pedido_pos']= df['pedido']+"-"+ df['posicion_po'].str.lstrip('0')
+df['clase_coste']="PO"
+df = df.drop('posicion_po', axis=1)
+df.rename(columns={'elemento_pep':'pep'}, inplace=True)
+df.rename(columns={'coste_total':'coste'}, inplace=True)
+df.rename(columns={'cl_po':'po_grafo'}, inplace=True)
+df.rename(columns={'fecha_pedido':'fecha'}, inplace=True)
 
-datos.df_pco2excel_app(df,year)
-datos.df_pco2excel_kpisites(df,year)
+#datos.df_pco2excel_app(df,year)
+#datos.df_pco2excel_kpisites(df,year)
 
 df1=datos.procesar_allzpscapp2df(year)
 df1['mes']= pd.DatetimeIndex(df1['fecha']).month
-df1['coste']=df1[['ceco','horas']].apply(lambda x: x['horas']*hr301 if x['ceco']==13301410 else (x['horas']*hr211 if x['ceco']==13211410 else x['horas']*hr215),axis=1)
+df1['coste']=df1[['ceco','horas']].apply(lambda x: x['horas']*hr301 if x['ceco']==13301410 else (x['horas']*hr211 if x['ceco']==13211410 else (x['horas']*hr215 if x['ceco']==13215410 else x['horas']*0)),axis=1).round(2)
+df1['clase_coste']="GRAFO"
+df1.rename(columns={'grafo':'po_grafo'}, inplace=True)
 
-datos.df_zpscapp2excel_app(df,year)
-datos.df_zpscapp2excel_kpisites(df,year)
+df_total=pd.merge(df,df1, how='outer', on=['pep','clase_coste','po_grafo','coste','ceco','mes','fecha'])
+
+with pd.ExcelWriter(cfg.PATH_COSTES_OUTPUT + 'Datos-PO-' + str(year) + '.xlsx') as output:
+    df_total.to_excel(output, sheet_name='total')
+
+#datos.df_zpscapp2excel_app(df,year)
+#datos.df_zpscapp2excel_kpisites(df,year)
 
 
-df_po_gby=df.groupby(['elemento_pep','ceco','mes'], as_index=False).sum()
-with pd.ExcelWriter(cfg.PATH_COSTES_OUTPUT+'df_po_gby'+'.xlsx') as output:
-        df_po_gby.to_excel(output, sheet_name='df_po_gby')
-
-pivot_pep_ceco=pd.pivot_table(df_po_gby,\
-                              index=['elemento_pep','ceco'],\
-                              columns='mes',\
-                              values='coste_total',\
-                              aggfunc=sum,\
-                              margins=False)
-with pd.ExcelWriter(cfg.PATH_COSTES_OUTPUT+'pivot_pep_ceco'+'.xlsx') as output:
-        pivot_pep_ceco.to_excel(output, sheet_name='pivot_pep_ceco')
-
-#df_po_gby.groupby(['elemento_pep','ceco'])[('coste_total')].sum()
-out=df_po_gby.groupby('elemento_pep').apply(lambda sub: sub.pivot_table(
-                              index=['elemento_pep','ceco'],\
-                              columns='mes',\
-                              values='coste_total',\
-                              aggfunc=sum,\
-                              margins=True))
-out.loc[('','Total','')]=(out.sum())/2
-out.index=out.index.droplevel(0)
-out.fillna('', inplace=True)
-#pivot_pep_ceco['YtD']=pivot_pep_ceco.sum(axis=1)
-
-pivot_pep_ceco=pivot_pep_ceco.fillna(' ')
-#html_pep_ceco=pivot_pep_ceco.to_html()
-html_pep_ceco=out.to_html()
-f=open("Prueba_pep_ceco.html","w")
-f.write(html_pep_ceco)
-f.close()
