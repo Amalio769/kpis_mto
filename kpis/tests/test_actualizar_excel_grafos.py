@@ -8,9 +8,9 @@ Created on Sun Jan 31 08:26:52 2021
 import kpis.sap.zps_capp as sap
 import kpis.informes.costes.preparacion_datos as datos
 
-year = 2020
+year = 2021
 
-sap.zps_capp_year(year)
+#sap.zps_capp_year(year)
 
 
 df=datos.procesar_allzpscapp2df(year)
