@@ -1,10 +1,171 @@
 # -*- coding: utf-8 -*-
 """
+Created on Thu Feb  4 13:45:34 2021
+
+@author: ng6b71c
+
+Nueva versión con GUI separada de lógica en código. @author original de la lógica c48142
+"""
+
+from main_ui import *
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
+from PyQt5.QtWidgets import QGroupBox, QTabWidget
+from PyQt5.QtCore import QDate
+import datetime
+from datetime import timedelta
+import sys
+import kpis.informes.diario.salida_datos as ids
+import kpis.sap.zpm_report_mwo as sap
+import kpis.configuracion.config as cfg
+import webbrowser as wb
+
+def sap_datos_hot():
+    """ Extrae de SAP los historicos de Ordenes de Trabajo desde el 2020 hasta
+    
+    el 2022. Los distintos archivos se almacenan en PATH_EFICIENCIA_HOT."""
+    
+    import kpis.configuracion.config as cfg
+    import kpis.sap.zpm_report_mwo as sap
+    import kpis.informes.eficiencia.preparacion_datos as datos
+    
+    #TODO: Cambiar al QDialog del QtDesigner
+    if(showDialogYN("AVISO","¿ TIENES SAP ABIERTO ?")) == QMessageBox.No:
+            return -1
+          
+    now=datetime.now()
+    
+    for x in range(2020,2022):
+        for i in cfg.FECHAS_HOT[x].keys():
+            if datetime.strptime(cfg.FECHAS_HOT[x][i]['DESDE'],'%d.%m.%Y')<now:
+                sap.zpm_report_mwo_hot(clase_orden='',\
+                         fecha_entrada_desde = cfg.FECHAS_HOT[x][i]['DESDE'],\
+                         fecha_entrada_hasta = cfg.FECHAS_HOT[x][i]['HASTA'],\
+                         variante = 'APP-ODRMP-01',\
+                         path = cfg.PATH_EFICIENCIA_HOT,\
+                         file_name_woe = i)
+                
+    df=datos.procesar_allhto2df()
+    datos.df_hot2excel_app(df)
+    datos.df_hot2excel_kpisites(df)
+    
+def tiempos_produccion():
+    """Extra los tiempos de produccion del fichero manual de CALENDARIOS
+    
+    y genera un fichero excel con los tiempos de produccion."""
+    import kpis.informes.eficiencia.preparacion_datos as datos
+
+    df=datos.tiempo_prod2df()
+    datos.df_tiempo_prod2excel(df)   
+
+def showDialogYN(texto_titulo,texto_mensaje):
+    """ Crear un menu dialogo con opciones de respuesta Y o N
+    
+    Solo hay que indicar el texto del titulo y el texto del mensaje.
+    La función devuelve el boton pulsado."""
+    msgBox = QMessageBox()
+    msgBox.setIcon(QMessageBox.Information)
+    msgBox.setText(texto_mensaje)
+    msgBox.setWindowTitle(texto_titulo)
+    msgBox.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+
+    return msgBox.exec()
+
+""" Extrae los datos de sap y presenta en Chrome el Informe Diario"""
+def informe_diario():
+
+    fecha_inicio = window.dateEdit_fechainicio.date().toString("dd.MM.yyyy")
+    fecha_final = window.dateEdit_fechafin.date().toString("dd.MM.yyyy")
+    if window.radioButton_informediario.isChecked():
+        filename_woe = 'INFORME_DIARIO'
+    elif window.radioButton_otsabiertas.isChecked():
+        filename_woe = 'INFORME_DIARIO_ABIERTAS'
+    else:
+        filename_woe = 'INFORME_DIARIO_ERRORES'
+        
+    #TODO: meter el QDialog de Qt Designer
+    if(showDialogYN("AVISO","¿ TIENES SAP ABIERTO ?")) == QMessageBox.No:
+        return -1
+        
+    sap.zpm_report_mwo_id(fecha_inicio,fecha_final,cfg.PATH_INFORME_DIARIO,filename_woe)
+        
+    if window.radioButton_informediario.isChecked():
+        ids.procesar_informe(cfg.PATH_INFORME_DIARIO,\
+                             filename_woe,\
+                             fecha_inicio,\
+                             fecha_final,\
+                             cfg.ID_ESTANDAR)
+    if window.radioButton_otsabiertas.isChecked():
+        ids.procesar_informe(cfg.PATH_INFORME_DIARIO,\
+                             filename_woe,\
+                             fecha_inicio,\
+                             fecha_final,\
+                             cfg.ID_ABIERTAS)
+    if window.radioButton_erroresot.isChecked():
+        ids.procesar_informe(cfg.PATH_INFORME_DIARIO,\
+                             filename_woe,\
+                             fecha_inicio,\
+                             fecha_final,\
+                             cfg.ID_ERRORES)
+    wb.open(cfg.PATH_INFORME_DIARIO + filename_woe + '.html')
+
+
+class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
+    def __init__(self, *args, **kwargs):
+        QtWidgets.QMainWindow.__init__(self, *args, **kwargs)
+        self.setupUi(self)
+        #Damos nombre a cada objeto en la app
+        #Ventana principal
+        #Título de la ventana
+        self.setWindowTitle("APP-KPI v1.0.0")
+        #Botón para salir de la app
+        self.pushButton_salir.setText("Salir")
+        self.pushButton_salir.clicked.connect(self.close)
+        
+        #Primera pestaña (Inf.Diario)
+        #Título de la pestaña
+        self.tabWidget_principal.setTabText(0, "Inf.Diario")
+        #Etiqueta de fecha inicio
+        self.label_fechainicio.setText("Fecha inicio:")
+        self.dateEdit_fechainicio.setMinimumDate(QDate(2020, 1, 1))
+        self.dateEdit_fechainicio.setMaximumDate(QDate(2050, 12, 31))
+        self.dateEdit_fechainicio.setDate(datetime.datetime.today()-timedelta(1))
+        #Etiqueta de fecha fin
+        self.label_fechafin.setText("Fecha final:")
+        self.dateEdit_fechafin.setMinimumDate(QDate(2020, 1, 1))
+        self.dateEdit_fechafin.setMaximumDate(QDate(2050, 12, 31))
+        self.dateEdit_fechafin.setDate(datetime.datetime.today())
+        #Título y opciones del groupbox
+        self.groupBox_tipoinforme.setTitle("Tipo informe")
+        self.radioButton_informediario.setText("Informe diario")
+        self.radioButton_otsabiertas.setText("OT's abiertas")
+        self.radioButton_erroresot.setText("Errores OT's")
+        #Botón para generar informe
+        self.pushButton_generarinforme.setText("Generar informe")
+        self.pushButton_generarinforme.clicked.connect(informe_diario)
+        
+        #Segunda pestaña (Dat.Eficiencia)
+        #Título de la pestaña
+        self.tabWidget_principal.setTabText(1, "Dat.Eficiencia")
+        #Botón histórico OT's
+        self.pushButton_saphistoricoot.setText("SAP. Datos Histórico OT's")
+        #Botón tiempos de producción
+        self.pushButton_tiemposproduccion.setText("Tiempos de producción")    
+        
+
+if __name__ == "__main__":
+    app = QtWidgets.QApplication([])
+    window = MainWindow()
+    window.show()
+    app.exec_()
+
+
+"""
 Created on Sat Jan 23 13:11:25 2021
 
 @author: C48142
 """
-
+"""
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PyQt5.QtWidgets import QGroupBox, QTabWidget
@@ -18,10 +179,7 @@ import kpis.configuracion.config as cfg
 import webbrowser as wb
 
 def informe_diario():
-    """ Extrae los datos de sap y presenta en Chrome el Informe Diario
-    
-    Detallar la funcion.
-    """
+
     
     fecha_inicio = fecha_ini.date().toString("dd.MM.yyyy")
     fecha_final = fecha_fin.date().toString("dd.MM.yyyy")
@@ -58,10 +216,7 @@ def informe_diario():
     wb.open(cfg.PATH_INFORME_DIARIO + filename_woe + '.html')
 #------------------------------------------------------------------------------
 def showDialogYN(texto_titulo,texto_mensaje):
-    """ Crear un menu dialogo con opciones de respuesta Y o N
-    
-    Solo hay que indicar el texto del titulo y el texto del mensaje.
-    La función devuelve el boton pulsado."""
+
     msgBox = QMessageBox()
     msgBox.setIcon(QMessageBox.Information)
     msgBox.setText(texto_mensaje)
@@ -71,9 +226,7 @@ def showDialogYN(texto_titulo,texto_mensaje):
     return msgBox.exec()
 #------------------------------------------------------------------------------   
 def sap_datos_hot():
-    """ Extrae de SAP los historicos de Ordenes de Trabajo desde el 2020 hasta
-    
-    el 2022. Los distintos archivos se almacenan en PATH_EFICIENCIA_HOT."""
+
     
     import kpis.configuracion.config as cfg
     import kpis.sap.zpm_report_mwo as sap
@@ -100,15 +253,13 @@ def sap_datos_hot():
     datos.df_hot2excel_kpisites(df)
 #------------------------------------------------------------------------------
 def tiempos_produccion():
-    """Extra los tiempos de produccion del fichero manual de CALENDARIOS
-    
-    y genera un fichero excel con los tiempos de produccion."""
+
     import kpis.informes.eficiencia.preparacion_datos as datos
 
     df=datos.tiempo_prod2df()
     datos.df_tiempo_prod2excel(df)   
 #------------------------------------------------------------------------------ 
-""" MAIN COMIENZO DEL CODIGO PRINCIPAL DE LA APLICACION"""
+
 app = QApplication(sys.argv)
 win = QMainWindow()
 win.setGeometry(400,400,500,300)
@@ -212,3 +363,4 @@ button_exit.move(430,260)
 win.show()
 sys.exit(app.exec_())
 #------------------------------------------------------------------------------     
+"""
