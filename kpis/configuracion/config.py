@@ -6,13 +6,13 @@ Created on Sat Dec 19 06:56:38 2020
 """
 import os
 
-contenido=os.listdir("G://")
+contenido=os.listdir("C://")
 for i in contenido:
-  if i.startswith('Unidades'):
+  if i.startswith('Archivos de programa'):
       path_g = i
 
 
-PATH_APP = "G://" + path_g
+PATH_APP = "C:/Users/ng6b71c/Desktop/PYTHON/kpis_mto/kpis_mto"#"G://" + path_g
 PATH_CONFIGURACION_APP = PATH_APP + "/APP-KPIs/CONFIGURACION/"
 PATH_INFORME_DIARIO = PATH_APP + "/APP-KPIs/INFORME-DIARIO/"
 PATH_COSTES_CECO = PATH_APP + "/APP-KPIs/COSTES/CECO/"
