@@ -45,7 +45,7 @@ def procesar_informe(file_path,file_name_woe,fecha_ini,fecha_fin,\
    # Crea un dataframe leyendo el archivo file_name
    df_archivoCsv=pd.read_csv(file_path + file_name_woe + '.csv',\
                              sep=';', header=0, na_values="",\
-                             encoding='latin_1')
+                             encoding='latin_1', engine='python')
    # Elimina los espacios en blanco de los nombres de columna
    df_archivoCsv.columns = df_archivoCsv.columns.str.replace(' ','_')
    # Crea una vista del df original, con los campos necesarios para la 
