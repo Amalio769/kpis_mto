@@ -68,7 +68,7 @@ def zpscappcsv2df(path_file_name):
         sys.exit("Error. No se puede abrir el fichero " + path_file_name)
     return df
 #------------------------------------------------------------------------------
-def procesar_allzpscapp2df(year,dpto):        
+def procesar_allzpscapp2df(year):        
     """ Procesa todos los ficheros de grafos y obtiene un dataframe
     
     Detallar la funcion....
@@ -77,9 +77,9 @@ def procesar_allzpscapp2df(year,dpto):
     
     path = cfg.PATH_COSTES_GRAFOS
     # Borra los archivos '.csv' previos
-    files.delete_list_ficheros(path,year,dpto,'.csv')
+    files.delete_list_ficheros(path,year,'.csv')
     df = pd.DataFrame()      
-    contenido=files.list_ficheros(path,year,dpto,'.txt')  
+    contenido=files.list_ficheros(path,year,'.txt')  
     for file_name in contenido:
         zpscapptxt2csv(path + file_name)
         temp_df=zpscappcsv2df(path + file_name.replace('.txt','.csv'))
@@ -92,22 +92,22 @@ def procesar_allzpscapp2df(year,dpto):
             df[columna]=pd.to_datetime(df[columna], format='%d.%m.%Y')
     return df
 #------------------------------------------------------------------------------
-def df_zpscapp2excel_app(df,year,dpto):
+def df_zpscapp2excel_app(df,year):
     """ Convierte el dataframe en un fichero excel en el directorio de la APP
     
     Detallar función
     """
     with pd.ExcelWriter(cfg.PATH_COSTES_OUTPUT+'Datos-Grafos-'+ str(year) +\
-                        '-' + dpto +'.xlsx') as output:
+                        '.xlsx') as output:
         df.to_excel(output, sheet_name='total grafos')
 #------------------------------------------------------------------------------
-def df_zpscapp2excel_kpisites(df,year,dpto):
+def df_zpscapp2excel_kpisites(df,year):
     """ Convierte el dataframe en un fichero excel en el directorio de Drive
     
     Detallar función
     """
     with pd.ExcelWriter(cfg.PATH_COSTES_OUTPUT_KPISITES + 'OP' + str(year)+\
-                '/Datos-Grafos-'+ str(year) + '-' + dpto + '.xlsx') as output:
+                '/Datos-Grafos-'+ str(year) + '.xlsx') as output:
         df.to_excel(output, sheet_name='total grafos')
 #------------------------------------------------------------------------------
 def me2ktxt2df(path_file_name,tipo_me2k,year):
@@ -212,7 +212,7 @@ def me2ktxt2df(path_file_name,tipo_me2k,year):
                     _ctd_precio_neto_por = int(linea[69:76].strip().replace('.','').replace(',','.'))
                     _und_ctd_precio_neto_por = linea[77:80].strip()
                 if linea[0:27] == '|     en unidad medida alm.':
-                    _ctd_medida_almacen = int(linea[32:43].strip().replace('.','').replace(',','.'))
+                    _ctd_medida_almacen = int(float(linea[32:43].strip().replace('.','').replace(',','.')))
                     _und_ctd_medida_almacen = linea[45:48].strip()
                     _precio_neto_por_medida_almacen = round(float(linea[49:63].strip().replace('.','').replace(',','.')),2)
                     _moneda_precio_neto_por_medida_almacen = linea[65:68].strip()
@@ -296,47 +296,61 @@ def me2ktxt2df(path_file_name,tipo_me2k,year):
     return datos_df
 
 #------------------------------------------------------------------------------
-def me2ktxt2df_year_dpto (year, dpto, tipo_me2k):
+def me2ktxt2df_year(year, tipo_me2k):
     """ Iteración de la funcion me2ktxt2df para la configuración costes
     
     Detallar funcionalidad
     """
-
+    import pandas as pd
     import kpis.configuracion.config as cfg
     
     if tipo_me2k not in['pep','ceco','orden']:
         sys.exit("Error. Hay que elegir al menos un parámetro entre ceco, "+ \
                "pep y orden")
     if tipo_me2k == 'pep':
-        fin_file_cfg = '-PEP.txt'
         path = cfg.PATH_COSTES_PEP
-    if tipo_me2k == 'ceco':
-        fin_file_cfg = '-CECO.txt'
-        path = cfg.PATH_COSTES_CECO
-    if tipo_me2k == 'orden':
-        fin_file_cfg = '-ORDEN.txt'
-        path = cfg.PATH_COSTES_ORDEN
-    
-
-    datos_df = pd.DataFrame()
-    with open(cfg.PATH_COSTES_CONFIGURACION + str(year) + '-' + dpto + fin_file_cfg) as f:
-        for linea in f:
-            temp_df = me2ktxt2df(path + str(year) + '-' + dpto + '-' +\
-                                 linea.rstrip().replace('/','-') +\
+        datos_df = pd.DataFrame()
+        df_pep = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', sheet_name='pep')
+        for row in df_pep.itertuples():
+            temp_df = me2ktxt2df(path + str(year) + '-' + \
+                                 str(row.pep).replace('/', '-') + \
                                  '.txt', tipo_me2k, year)
-            datos_df = pd.concat([datos_df,temp_df])
+            datos_df = pd.concat([datos_df, temp_df])
         return datos_df
+
+    if tipo_me2k == 'ceco':
+        path = cfg.PATH_COSTES_CECO
+        datos_df = pd.DataFrame()
+        df_ceco = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', sheet_name='ceco')
+        for row in df_ceco.itertuples():
+            temp_df = me2ktxt2df(path + str(year) + '-' + \
+                                 str(row.ceco).replace('/', '-') + \
+                                 '.txt', tipo_me2k, year)
+            datos_df = pd.concat([datos_df, temp_df])
+        return datos_df
+
+    if tipo_me2k == 'orden':
+        path = cfg.PATH_COSTES_ORDEN
+        datos_df = pd.DataFrame()
+        df_orden = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', sheet_name='orden')
+        for row in df_orden.itertuples():
+            temp_df = me2ktxt2df(path + str(year) + '-' + \
+                                 str(row.orden).replace('/', '-') + \
+                                 '.txt', tipo_me2k, year)
+            datos_df = pd.concat([datos_df, temp_df])
+        return datos_df
+    
 #------------------------------------------------------------------------------
-def combinar_pep_ceco_orden(year, dpto):
+def combinar_pep_ceco_orden(year):
     """ Combina los dataframes de Pep, Ceco y Orden y devuelve el resultado
     
     Detallar funcionalidad
     """
     import kpis.informes.costes.preparacion_datos as costes
     
-    df_pep   = costes.me2ktxt2df_year_dpto(year, dpto, 'pep')
-    df_ceco  = costes.me2ktxt2df_year_dpto(year, dpto, 'ceco')
-    df_orden = costes.me2ktxt2df_year_dpto(year, dpto, 'orden')
+    df_pep   = costes.me2ktxt2df_year(year, 'pep')
+    df_ceco  = costes.me2ktxt2df_year(year, 'ceco')
+    df_orden = costes.me2ktxt2df_year(year, 'orden')
     
     df_pep_ceco = pd.merge(df_pep.drop('ceco',axis=1),\
                            df_ceco[['pedido','posicion_po','ceco']],\
@@ -368,22 +382,22 @@ def combinar_pep_ceco_orden(year, dpto):
     
     return df_total
 #------------------------------------------------------------------------------
-def df_pco2excel_app(df,year,dpto):
+def df_pco2excel_app(df,year):
     """ Convierte el dataframe en un fichero excel en el directorio de la APP
     
     Detallar función
     """
     with pd.ExcelWriter(cfg.PATH_COSTES_OUTPUT+'Datos-PO-'+ str(year) +\
-                        '-' + dpto +'.xlsx') as output:
+                        '.xlsx') as output:
         df.to_excel(output, sheet_name='total')
 #------------------------------------------------------------------------------
-def df_pco2excel_kpisites(df,year,dpto):
+def df_pco2excel_kpisites(df,year):
     """ Convierte el dataframe en un fichero excel en el directorio de Drive
     
     Detallar función
     """
     with pd.ExcelWriter(cfg.PATH_COSTES_OUTPUT_KPISITES + 'OP' + str(year)+\
-                        '/Datos-PO-'+ str(year) + '-' + dpto + '.xlsx') as output:
+                        '/Datos-PO-'+ str(year) + '.xlsx') as output:
         df.to_excel(output, sheet_name='total')
 #------------------------------------------------------------------------------
 

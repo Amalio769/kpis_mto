@@ -9,11 +9,10 @@ import kpis.sap.zps_capp as sap
 import kpis.informes.costes.preparacion_datos as datos
 
 year = 2021
-dpto = 'ODRM'
 
-sap.zps_capp_year_dpto(year,dpto)
+#sap.zps_capp_year(year)
 
 
-df=datos.procesar_allzpscapp2df(year, dpto)
-datos.df_zpscapp2excel_app(df,year, dpto)
-datos.df_zpscapp2excel_kpisites(df,year, dpto)
+df=datos.procesar_allzpscapp2df(year)
+datos.df_zpscapp2excel_app(df,year)
+datos.df_zpscapp2excel_kpisites(df,year)

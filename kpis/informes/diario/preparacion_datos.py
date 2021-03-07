@@ -69,7 +69,8 @@ def modificarContenidoCsv(file_name):
         for i in range(len(lst_linea)): # bucle para leer posiciones de ';'
             if(lst_linea[i])==';':
                 posPuntoComa.append(i)
-        if len(posPuntoComa)>=53:
+
+        if len(posPuntoComa)>50 and (linea[0:5] == "Orden" or linea[0:5] == "00000"):
             if posPuntoComa[48]-posPuntoComa[47]>9 and posPuntoComa[48]-posPuntoComa[47]<25:
                 lst_linea.insert(posPuntoComa[47]+1,';')
             lineas_modificadas.append("".join(lst_linea))

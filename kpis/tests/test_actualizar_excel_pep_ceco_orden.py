@@ -8,11 +8,11 @@ import kpis.sap.me2k as sap
 import kpis.informes.costes.preparacion_datos as datos
 
 year = 2020
-dpto = 'ODRM'
-
-sap.me2k_year_dpto(year,dpto)
 
 
-df=datos.combinar_pep_ceco_orden(year, dpto)
-datos.df_pco2excel_app(df,year, dpto)
-datos.df_pco2excel_kpisites(df,year, dpto)
+sap.me2k_year(year)
+
+
+df=datos.combinar_pep_ceco_orden(year)
+datos.df_pco2excel_app(df,year)
+datos.df_pco2excel_kpisites(df,year)
