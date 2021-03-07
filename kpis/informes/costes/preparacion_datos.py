@@ -212,7 +212,7 @@ def me2ktxt2df(path_file_name,tipo_me2k,year):
                     _ctd_precio_neto_por = int(linea[69:76].strip().replace('.','').replace(',','.'))
                     _und_ctd_precio_neto_por = linea[77:80].strip()
                 if linea[0:27] == '|     en unidad medida alm.':
-                    _ctd_medida_almacen = int(linea[32:43].strip().replace('.','').replace(',','.'))
+                    _ctd_medida_almacen = int(float(linea[32:43].strip().replace('.','').replace(',','.')))
                     _und_ctd_medida_almacen = linea[45:48].strip()
                     _precio_neto_por_medida_almacen = round(float(linea[49:63].strip().replace('.','').replace(',','.')),2)
                     _moneda_precio_neto_por_medida_almacen = linea[65:68].strip()
@@ -301,31 +301,45 @@ def me2ktxt2df_year(year, tipo_me2k):
     
     Detallar funcionalidad
     """
-
+    import pandas as pd
     import kpis.configuracion.config as cfg
     
     if tipo_me2k not in['pep','ceco','orden']:
         sys.exit("Error. Hay que elegir al menos un parámetro entre ceco, "+ \
                "pep y orden")
     if tipo_me2k == 'pep':
-        fin_file_cfg = '-PEP.txt'
         path = cfg.PATH_COSTES_PEP
-    if tipo_me2k == 'ceco':
-        fin_file_cfg = '-CECO.txt'
-        path = cfg.PATH_COSTES_CECO
-    if tipo_me2k == 'orden':
-        fin_file_cfg = '-ORDEN.txt'
-        path = cfg.PATH_COSTES_ORDEN
-    
-
-    datos_df = pd.DataFrame()
-    with open(cfg.PATH_COSTES_CONFIGURACION + str(year) +  fin_file_cfg) as f:
-        for linea in f:
-            temp_df = me2ktxt2df(path + str(year) + '-' +\
-                                 linea.rstrip().replace('/','-') +\
+        datos_df = pd.DataFrame()
+        df_pep = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', sheet_name='pep')
+        for row in df_pep.itertuples():
+            temp_df = me2ktxt2df(path + str(year) + '-' + \
+                                 str(row.pep).replace('/', '-') + \
                                  '.txt', tipo_me2k, year)
-            datos_df = pd.concat([datos_df,temp_df])
+            datos_df = pd.concat([datos_df, temp_df])
         return datos_df
+
+    if tipo_me2k == 'ceco':
+        path = cfg.PATH_COSTES_CECO
+        datos_df = pd.DataFrame()
+        df_ceco = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', sheet_name='ceco')
+        for row in df_ceco.itertuples():
+            temp_df = me2ktxt2df(path + str(year) + '-' + \
+                                 str(row.ceco).replace('/', '-') + \
+                                 '.txt', tipo_me2k, year)
+            datos_df = pd.concat([datos_df, temp_df])
+        return datos_df
+
+    if tipo_me2k == 'orden':
+        path = cfg.PATH_COSTES_ORDEN
+        datos_df = pd.DataFrame()
+        df_orden = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', sheet_name='orden')
+        for row in df_orden.itertuples():
+            temp_df = me2ktxt2df(path + str(year) + '-' + \
+                                 str(row.orden).replace('/', '-') + \
+                                 '.txt', tipo_me2k, year)
+            datos_df = pd.concat([datos_df, temp_df])
+        return datos_df
+    
 #------------------------------------------------------------------------------
 def combinar_pep_ceco_orden(year):
     """ Combina los dataframes de Pep, Ceco y Orden y devuelve el resultado

@@ -7,7 +7,7 @@ Created on Wed Jan 27 20:08:32 2021
 import kpis.sap.me2k as sap
 import kpis.informes.costes.preparacion_datos as datos
 
-year = 2021
+year = 2020
 
 
 sap.me2k_year(year)

@@ -4,14 +4,39 @@ Created on Sun Dec 20 16:39:54 2020
 
 @author: C48142
 """
-import kpis.configuracion.config as cfg
-import os, sys
-import pandas as pd
+import sys
+from PyQt5.QtCore import QTimer
+from PyQt5.QtWidgets import QApplication, QMainWindow, QProgressBar
+from PyQt5.QtCore import Qt
 
-path_file_name = cfg.PATH_CONFIGURACION_APP + "CONFIGURACION-APP.txt"
-col_names = ['year','dpto']
-if os.path.isfile(path_file_name):
-    df=pd.read_csv(path_file_name, sep=';', header=None, names = col_names,\
-                   index_col= None,dtype={'year': 'int64','dpto': 'str'}, encoding = 'latin-1')
-else:
-    sys.exit("Error. No se puede abrir el fichero " + path_file_name)
+
+class Example(QMainWindow):
+
+    def __init__(self):
+        super().__init__()
+
+        self.pbar = QProgressBar(self)
+        self.pbar.setGeometry(30, 40, 200, 25)
+        self.pbar.setValue(50)
+
+        self.setWindowTitle("QT Progressbar Example")
+        self.setGeometry(32, 32, 320, 200)
+        self.show()
+
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.handleTimer)
+        self.timer.start(1000)
+
+    def handleTimer(self):
+        value = self.pbar.value()
+        if value < 100:
+            value = value + 1
+            self.pbar.setValue(value)
+        else:
+            self.timer.stop()
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = Example()
+    sys.exit(app.exec_())
