@@ -149,8 +149,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.tabWidget_principal.setTabText(1, "Dat.Eficiencia")
         #Botón histórico OT's
         self.pushButton_saphistoricoot.setText("SAP. Datos Histórico OT's")
+        self.pushButton_saphistoricoot.clicked.connect(sap_datos_hot)
         #Botón tiempos de producción
-        self.pushButton_tiemposproduccion.setText("Tiempos de producción")    
+        self.pushButton_tiemposproduccion.setText("Tiempos de producción") 
+        self.pushButton_tiemposproduccion.clicked.connect(tiempos_produccion)   
         
 
 if __name__ == "__main__":
