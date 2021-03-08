@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # Form implementation generated from reading ui file 'main.ui'
 #
 # Created by: PyQt5 UI code generator 5.6
@@ -9,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(442, 370)
+        MainWindow.resize(442, 366)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.tabWidget_principal = QtWidgets.QTabWidget(self.centralwidget)
@@ -21,7 +23,7 @@ class Ui_MainWindow(object):
         self.label_fechainicio.setGeometry(QtCore.QRect(20, 20, 71, 21))
         self.label_fechainicio.setObjectName("label_fechainicio")
         self.groupBox_tipoinforme = QtWidgets.QGroupBox(self.tab_informediario)
-        self.groupBox_tipoinforme.setGeometry(QtCore.QRect(20, 120, 131, 111))
+        self.groupBox_tipoinforme.setGeometry(QtCore.QRect(50, 120, 131, 111))
         self.groupBox_tipoinforme.setObjectName("groupBox_tipoinforme")
         self.radioButton_otsabiertas = QtWidgets.QRadioButton(self.groupBox_tipoinforme)
         self.radioButton_otsabiertas.setGeometry(QtCore.QRect(20, 50, 101, 18))
@@ -38,7 +40,7 @@ class Ui_MainWindow(object):
         self.radioButton_informediario.setSizePolicy(sizePolicy)
         self.radioButton_informediario.setObjectName("radioButton_informediario")
         self.pushButton_generarinforme = QtWidgets.QPushButton(self.tab_informediario)
-        self.pushButton_generarinforme.setGeometry(QtCore.QRect(220, 150, 101, 41))
+        self.pushButton_generarinforme.setGeometry(QtCore.QRect(230, 150, 121, 61))
         self.pushButton_generarinforme.setObjectName("pushButton_generarinforme")
         self.dateEdit_fechainicio = QtWidgets.QDateEdit(self.tab_informediario)
         self.dateEdit_fechainicio.setGeometry(QtCore.QRect(100, 20, 121, 21))
@@ -59,6 +61,9 @@ class Ui_MainWindow(object):
         self.pushButton_tiemposproduccion.setGeometry(QtCore.QRect(20, 80, 361, 31))
         self.pushButton_tiemposproduccion.setObjectName("pushButton_tiemposproduccion")
         self.tabWidget_principal.addTab(self.tab_datoseficiencia, "")
+        self.tab_costes = QtWidgets.QWidget()
+        self.tab_costes.setObjectName("tab_costes")
+        self.tabWidget_principal.addTab(self.tab_costes, "")
         self.pushButton_salir = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_salir.setGeometry(QtCore.QRect(330, 300, 75, 23))
         self.pushButton_salir.setObjectName("pushButton_salir")
@@ -72,6 +77,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
+        self.tabWidget_principal.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -88,6 +94,7 @@ class Ui_MainWindow(object):
         self.pushButton_saphistoricoot.setText(_translate("MainWindow", "PushButton"))
         self.pushButton_tiemposproduccion.setText(_translate("MainWindow", "PushButton"))
         self.tabWidget_principal.setTabText(self.tabWidget_principal.indexOf(self.tab_datoseficiencia), _translate("MainWindow", "Tab 2"))
+        self.tabWidget_principal.setTabText(self.tabWidget_principal.indexOf(self.tab_costes), _translate("MainWindow", "Page"))
         self.pushButton_salir.setText(_translate("MainWindow", "PushButton"))
 
 

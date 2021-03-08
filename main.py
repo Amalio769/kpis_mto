@@ -153,6 +153,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         #Botón tiempos de producción
         self.pushButton_tiemposproduccion.setText("Tiempos de producción") 
         self.pushButton_tiemposproduccion.clicked.connect(tiempos_produccion)   
+
+        #Tercera pestaña (Costes)
+        #Título de la pestaña
+        self.tabWidget_principal.setTabText(2, "Costes")
         
 
 if __name__ == "__main__":
