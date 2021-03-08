@@ -6,15 +6,15 @@ Created on Sat Dec 19 06:56:38 2020
 """
 import os
 
-contenido=os.listdir("C://")
+contenido=os.listdir("G://")
 for i in contenido:
-  if i.startswith('Archivos de programa'):
+  if i.startswith('Unidades'):
       path_g = i
 
 
-PATH_APP = "C:/Users/ng6b71c/Desktop/PYTHON/kpis_mto/kpis_mto"#"G://" + path_g
+PATH_APP = "G://" + path_g #"C:/Users/ng6b71c/Desktop/PYTHON/kpis_mto/kpis_mto"#"G://" + path_g
 PATH_CONFIGURACION_APP = PATH_APP + "/APP-KPIs/CONFIGURACION/"
-PATH_INFORME_DIARIO = PATH_APP + "/APP-KPIs/INFORME-DIARIO/"
+PATH_INFORME_DIARIO = "G://Unidades Compartidas" + "/APP-KPIs/INFORME-DIARIO/"
 PATH_COSTES_CECO = PATH_APP + "/APP-KPIs/COSTES/CECO/"
 PATH_COSTES_CONFIGURACION = PATH_APP + "/APP-KPIs/COSTES/CONFIGURACION/"
 PATH_COSTES_ORDEN = PATH_APP + "/APP-KPIs/COSTES/ORDEN/"
@@ -23,9 +23,9 @@ PATH_COSTES_OUTPUT_KPISITES = PATH_APP + "/ODRMP - MANTENIMIENTO PRODUCTIVO/11 -
 PATH_COSTES_PEP = PATH_APP + "/APP-KPIs/COSTES/PEP/"
 PATH_COSTES_GRAFOS = PATH_APP + "/APP-KPIs/COSTES/GRAFOS/"
 PATH_EFICIENCIA_HOT = PATH_APP + "/APP-KPIs/EFICIENCIA-HISTORICO-OT/"
-PATH_TIEMPO_PRODUCCION = PATH_APP + "/APP-KPIs/TIEMPO-PRODUCCION/"
+PATH_TIEMPO_PRODUCCION = "G://Unidades Compartidas" + "/APP-KPIs/TIEMPO-PRODUCCION/"
 PATH_KPI_SITES_HOT = PATH_APP + "/ODRMP - MANTENIMIENTO PRODUCTIVO/11 - KPI-SITES/HISTORICO OTs/"
-PATH_KPI_SITES_TPO_PRODUCCION = PATH_APP + "/ODRMP - MANTENIMIENTO PRODUCTIVO/11 - KPI-SITES/TIEMPOS PRODUCCION/"
+PATH_KPI_SITES_TPO_PRODUCCION = "G://Unidades Compartidas" + "/ODRMP - MANTENIMIENTO PRODUCTIVO/11 - KPI-SITES/TIEMPOS PRODUCCION/" #PATH_APP + "/ODRMP - MANTENIMIENTO PRODUCTIVO/11 - KPI-SITES/TIEMPOS PRODUCCION/"
 
 CABECERA_TXT_HOT = "|  Cl.|T.Trabajo|Orden  |Ubicación técnica           |Denominación objeto                     |Equipo |Fe.entrada|Inic.extr.|Fin extr. |F.Cierre T|Texto breve                             |Status sistema                    |Status usuario     |Pl.MantPrv  |  Sum CPLA|Sum PSUP|  Sum PMAT| Suma PAIR|   Sum ...|Tiempo Res|H. parada| Tiem Tota|Trbjo real|Fallo   |Problema                                |Cód. cat.|Ce.coste|Denom.ubic.técnica                      |Fecha ref.|F.Cier Com|Inicio    |Inic.real |Fin real  |Liber.    |Fin progr.|Fin real|CGH|GrpHRuta|Hist. dsd |H.Cier Com|HoraCierrT|HoraFinExt|Fin (hora)|Hora inic.|HoraRef |H. inicio|Hora inic.|In.real |Hr. crea|Inic.prog.|Pos.PM|"
 CABECERA_TXT_GRAFOS ="|ceco|num_empleado|nombre_empleado|fecha|denominacion_operacion|denominacion_grafo|denominacion_pep|horas|grafo|pep|"
