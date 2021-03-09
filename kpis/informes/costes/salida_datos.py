@@ -66,6 +66,7 @@ def coste_po_grafo_year(year):
     df1.rename(columns={'grafo':'po_grafo'}, inplace=True)
     df1['po_grafo'] = round(df1['po_grafo'], 0)
     df1['po_grafo'] = df1['po_grafo'].astype(str)
+    df1['po_grafo'] = df1['po_grafo'].str.replace('.0', '', regex=False)
     df1['ceco'] = df1['ceco'].astype(str)
 
 

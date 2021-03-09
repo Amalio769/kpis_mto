@@ -169,16 +169,36 @@ def actualizar_costes():
     now = datetime.now()
     year = now.year
 
-    if (showDialogYN("AVISO", "¿ TIENES SAP-ME2K ABIERTO ?")) == QMessageBox.Yes:
-        for year_idx in range(year - 1, year + 1):
-            kpis.sap.me2k.me2k_year(year_idx)
-    if (showDialogYN("AVISO", "¿ TIENES SAP-GRAFOS ABIERTO ?")) == QMessageBox.Yes:
-        for year_idx in range(year - 1, year + 1):
-            kpis.sap.zps_capp.zps_capp_year(year_idx)
+    # Ventana Dialogo preguntando que tienes SAP abierto
+    if (showDialogYN("AVISO", "¿ TIENES SAP-ME2K ABIERTO ?")) == QMessageBox.No:
+        # Elimina el texto "Working..." de la interfaz de usuario.
+        label_actualizar_costes_procesando.setText(" ")
+        label_actualizar_costes_procesando.adjustSize()
+        return -1
 
+    # Extrae de SAP los datos de costes del año en curso y del anterior
+    for year_idx in range(year - 1, year + 1):
+        kpis.sap.me2k.me2k_year(year_idx)
+
+    # Ventana Dialogo preguntando que tienes SAP abierto
+    if (showDialogYN("AVISO", "¿ TIENES SAP-GRAFOS ABIERTO ?")) == QMessageBox.No:
+        # Elimina el texto "Working..." de la interfaz de usuario.
+        label_actualizar_costes_procesando.setText(" ")
+        label_actualizar_costes_procesando.adjustSize()
+        return -1
+
+    # Extrae de SAP los datos de grafos del año en curso y del anterior
+    for year_idx in range(year - 1, year + 1):
+        kpis.sap.zps_capp.zps_capp_year(year_idx)
+
+    # Para cada año en la iteración crea un archivo excel con el total de costes de PO
+    # y grafos.
     for year_idx in range(year - 1, year + 1):
         kpis.informes.costes.salida_datos.coste_po_grafo_year(year_idx)
 
+    # Con los archivos excel del año en curso y anterior, creados en el paso anterior,
+    # crea un archivo excel con la suma de los dos, y lo almacena en dos ubicaciones
+    # distintas.
     path_year_1 = cfg.PATH_COSTES_OUTPUT + 'Datos-PO-' + str(year - 1) + '.xlsx'
     path_year = cfg.PATH_COSTES_OUTPUT + 'Datos-PO-' + str(year) + '.xlsx'
     df_year_1 = pd.read_excel(path_year_1, sheet_name='total')
@@ -226,7 +246,7 @@ def actualizar_repuestos():
 app = QApplication(sys.argv)
 win = QMainWindow()
 win.setGeometry(400,400,500,300)
-win.setWindowTitle("APP-KPI v1.0.0")
+win.setWindowTitle("APP-KPI v1.0.1")
 
 tabs = QTabWidget(win)
 tabs.move(5,5)
