@@ -149,14 +149,23 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.tabWidget_principal.setTabText(1, "Dat.Eficiencia")
         #Botón histórico OT's
         self.pushButton_saphistoricoot.setText("SAP. Datos Histórico OT's")
+        self.pushButton_saphistoricoot.setToolTip('Actualiza el fichero excel HISTORICO OTS '+\
+                                'con los datos bajados de SAP.')
         self.pushButton_saphistoricoot.clicked.connect(sap_datos_hot)
         #Botón tiempos de producción
         self.pushButton_tiemposproduccion.setText("Tiempos de producción") 
+        self.pushButton_tiemposproduccion.setToolTip('Actualiza el fichero excel TIEMPOS '+\
+                      'PRODUCCION con los datos manuales registrados en el '+\
+                      'archivo CALENDARIOS.')
         self.pushButton_tiemposproduccion.clicked.connect(tiempos_produccion)   
 
         #Tercera pestaña (Costes)
         #Título de la pestaña
         self.tabWidget_principal.setTabText(2, "Costes")
+        #Botón actualizar costes
+        self.pushButton_actualizarcostes.setText("Actualizar costes")
+        #Botón actualizar repuestos
+        self.pushButton_actualizarrepuestos.setText("Actualizar repuestos")
         
 
 if __name__ == "__main__":
