@@ -15,9 +15,10 @@ def coste_po_grafo_year(year):
     import pandas as pd
 
 
+    #TODO: Misma actualización de Pandas y cambiar la llamada a la función read_excel (añadir sheet_name)
     # Del fichero excel de configuración de costes lee los valores de tarifa horaria
     # por cada ceco
-    df_ceco_grafo = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', sheet_name='ceco-grafo')
+    df_ceco_grafo = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', 'ceco-grafo')
     for row in df_ceco_grafo.itertuples():
         if row.ceco_grafo == 13301410:
             hr301 = row.hr
@@ -27,11 +28,11 @@ def coste_po_grafo_year(year):
             hr215 = row.hr
     # Del fichero excel de configuración de costes lee los valores de los pep con sus
     # descripciones
-    df_pep = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', sheet_name='pep')
+    df_pep = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', 'pep')
 
     # Del fichero excel de configuración de costes lee los valores de las propuestas de
     # gastos con sus descripciones
-    df_orden = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', sheet_name='orden')
+    df_orden = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', 'orden')
 
     df = datos.combinar_pep_ceco_orden(year)
     df = df.drop_duplicates()
@@ -66,7 +67,8 @@ def coste_po_grafo_year(year):
     df1.rename(columns={'grafo':'po_grafo'}, inplace=True)
     df1['po_grafo'] = round(df1['po_grafo'], 0)
     df1['po_grafo'] = df1['po_grafo'].astype(str)
-    df1['po_grafo'] = df1['po_grafo'].str.replace('.0', '', regex=False)
+    #TODO: regex=False no soportado en version Pandas 0.19, nuevo desde version 0.23.0
+    df1['po_grafo'] = df1['po_grafo'].str.replace('.0', '')
     df1['ceco'] = df1['ceco'].astype(str)
 
 

@@ -115,7 +115,8 @@ def zps_capp_year(year):
     import kpis.configuracion.config as cfg
     import pandas as pd
 
-    df_ceco_grafo = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', sheet_name='ceco-grafo')
+    #TODO: Mismo caso que en me2k, compatibilidad versiones Pandas
+    df_ceco_grafo = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', 'ceco-grafo')
     for row in df_ceco_grafo.itertuples():
         zps_capp(year, ceco = str(row.ceco_grafo))
     

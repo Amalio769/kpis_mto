@@ -9,6 +9,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PyQt5.QtWidgets import QGroupBox, QTabWidget, QComboBox
 from PyQt5.QtCore import QDate
+from main_ui import *
 import datetime
 from datetime import timedelta
 import sys
@@ -17,6 +18,7 @@ import kpis.sap.zpm_report_mwo as sap
 import kpis.configuracion.config as cfg
 import webbrowser as wb
 
+
 def informe_diario():
     """ Extrae los datos de sap y presenta en Chrome el Informe Diario
     
@@ -24,14 +26,14 @@ def informe_diario():
     """
     #Para indicar que el proceso de Informe diario está activo, aparece en pantalla el
     #texto "Working..."
-    label_informe_diario_procesando.setText("Working...")
-    label_informe_diario_procesando.adjustSize()
+    #label_informe_diario_procesando.setText("Working...")
+    #label_informe_diario_procesando.adjustSize()
 
-    fecha_inicio = fecha_ini.date().toString("dd.MM.yyyy")
-    fecha_final = fecha_fin.date().toString("dd.MM.yyyy")
-    if radio_id_estandar.isChecked():
+    fecha_inicio = window.dateEdit_fechainicio.date().toString("dd.MM.yyyy")
+    fecha_final = window.dateEdit_fechafin.date().toString("dd.MM.yyyy")
+    if window.radioButton_informediario.isChecked():
         filename_woe = 'INFORME_DIARIO'
-    elif radio_id_abierto.isChecked():
+    elif window.radioButton_otsabiertas.isChecked():
         filename_woe = 'INFORME_DIARIO_ABIERTAS'
     else:
         filename_woe = 'INFORME_DIARIO_ERRORES'
@@ -39,8 +41,8 @@ def informe_diario():
 
     if(showDialogYN("AVISO","¿ TIENES SAP ABIERTO ?")) == QMessageBox.No:
         #Elimina el texto de "Working..."
-        label_informe_diario_procesando.setText(" ")
-        label_informe_diario_procesando.adjustSize()
+        #label_informe_diario_procesando.setText(" ")
+        #label_informe_diario_procesando.adjustSize()
         return -1
     #Extrae los datos de SAP
     sap.zpm_report_mwo_id(fecha_inicio,fecha_final,cfg.PATH_INFORME_DIARIO,filename_woe)
@@ -49,19 +51,19 @@ def informe_diario():
     #1)Informe diario Estandar
     #2)Informe de OT's abiertas
     #3)Informe de OT's con errores de reporte
-    if radio_id_estandar.isChecked():
+    if window.radioButton_informediario.isChecked():
         ids.procesar_informe(cfg.PATH_INFORME_DIARIO,\
                              filename_woe,\
                              fecha_inicio,\
                              fecha_final,\
                              cfg.ID_ESTANDAR)
-    if radio_id_abierto.isChecked():
+    if window.radioButton_otsabiertas.isChecked():
         ids.procesar_informe(cfg.PATH_INFORME_DIARIO,\
                              filename_woe,\
                              fecha_inicio,\
                              fecha_final,\
                              cfg.ID_ABIERTAS)
-    if radio_id_error.isChecked():
+    if window.radioButton_erroresot.isChecked():
         ids.procesar_informe(cfg.PATH_INFORME_DIARIO,\
                              filename_woe,\
                              fecha_inicio,\
@@ -71,8 +73,8 @@ def informe_diario():
     wb.open(cfg.PATH_INFORME_DIARIO + filename_woe + '.html')
 
     #Elimina el texto "Working..." de la interfaz de usuario.
-    label_informe_diario_procesando.setText(" ")
-    label_informe_diario_procesando.adjustSize()
+    #label_informe_diario_procesando.setText(" ")
+    #label_informe_diario_procesando.adjustSize()
 #------------------------------------------------------------------------------
 def showDialogYN(texto_titulo,texto_mensaje):
     """ Crear un menu dialogo con opciones de respuesta Y o N
@@ -98,13 +100,13 @@ def sap_datos_hot():
     from datetime import datetime
 
     #Muestra en la interfaz de usuario el texto "Working..."
-    label_sap_datos_hot_procesando.setText("Working...")
-    label_sap_datos_hot_procesando.adjustSize()
+    #label_sap_datos_hot_procesando.setText("Working...")
+    #label_sap_datos_hot_procesando.adjustSize()
 
     if(showDialogYN("AVISO","¿ TIENES SAP ABIERTO ?")) == QMessageBox.No:
         #Elimina el texto "Working...", y sale de la función actual.
-        label_sap_datos_hot_procesando.setText(" ")
-        label_sap_datos_hot_procesando.adjustSize()
+        #label_sap_datos_hot_procesando.setText(" ")
+        #label_sap_datos_hot_procesando.adjustSize()
         return -1
 
     #Fecha actual
@@ -130,8 +132,8 @@ def sap_datos_hot():
     datos.df_hot2excel_kpisites(df)
 
     # Elimina el texto "Working..." de la interfaz de usuario.
-    label_sap_datos_hot_procesando.setText(" ")
-    label_sap_datos_hot_procesando.adjustSize()
+    #label_sap_datos_hot_procesando.setText(" ")
+    #label_sap_datos_hot_procesando.adjustSize()
 #------------------------------------------------------------------------------
 def tiempos_produccion():
     """Extrae los tiempos de produccion del fichero manual de CALENDARIOS
@@ -140,15 +142,15 @@ def tiempos_produccion():
     import kpis.informes.eficiencia.preparacion_datos as datos
 
     # Muestra en la interfaz de usuario el texto "Working..."
-    label_tiempos_produccion_procesando.setText("Working...")
-    label_tiempos_produccion_procesando.adjustSize()
+    #label_tiempos_produccion_procesando.setText("Working...")
+    #label_tiempos_produccion_procesando.adjustSize()
 
     df=datos.tiempo_prod2df()
     datos.df_tiempo_prod2excel(df)
 
     # Elimina el texto "Working..." de la interfaz de usuario.
-    label_tiempos_produccion_procesando.setText(" ")
-    label_tiempos_produccion_procesando.adjustSize()
+    #label_tiempos_produccion_procesando.setText(" ")
+    #label_tiempos_produccion_procesando.adjustSize()
 #------------------------------------------------------------------------------
 def actualizar_costes():
     """Extrae de SAP los datos de costes y actualiza el archivo excel
@@ -162,8 +164,8 @@ def actualizar_costes():
     from datetime import datetime
 
     # Muestra en la interfaz de usuario el texto "Working..."
-    label_actualizar_costes_procesando.setText("Working...")
-    label_actualizar_costes_procesando.adjustSize()
+    #label_actualizar_costes_procesando.setText("Working...")
+    #label_actualizar_costes_procesando.adjustSize()
 
     # Fecha actual y año en curso
     now = datetime.now()
@@ -172,8 +174,8 @@ def actualizar_costes():
     # Ventana Dialogo preguntando que tienes SAP abierto
     if (showDialogYN("AVISO", "¿ TIENES SAP-ME2K ABIERTO ?")) == QMessageBox.No:
         # Elimina el texto "Working..." de la interfaz de usuario.
-        label_actualizar_costes_procesando.setText(" ")
-        label_actualizar_costes_procesando.adjustSize()
+        #label_actualizar_costes_procesando.setText(" ")
+        #label_actualizar_costes_procesando.adjustSize()
         return -1
 
     # Extrae de SAP los datos de costes del año en curso y del anterior
@@ -183,8 +185,8 @@ def actualizar_costes():
     # Ventana Dialogo preguntando que tienes SAP abierto
     if (showDialogYN("AVISO", "¿ TIENES SAP-GRAFOS ABIERTO ?")) == QMessageBox.No:
         # Elimina el texto "Working..." de la interfaz de usuario.
-        label_actualizar_costes_procesando.setText(" ")
-        label_actualizar_costes_procesando.adjustSize()
+        #label_actualizar_costes_procesando.setText(" ")
+        #label_actualizar_costes_procesando.adjustSize()
         return -1
 
     # Extrae de SAP los datos de grafos del año en curso y del anterior
@@ -212,8 +214,8 @@ def actualizar_costes():
         df_TOTAL.to_excel(output, sheet_name='ODRM', index=False)
 
     # Elimina el texto "Working..." de la interfaz de usuario.
-    label_actualizar_costes_procesando.setText(" ")
-    label_actualizar_costes_procesando.adjustSize()
+    #label_actualizar_costes_procesando.setText(" ")
+    #label_actualizar_costes_procesando.adjustSize()
 #------------------------------------------------------------------------------
 def actualizar_repuestos():
     """Extrae de SAP los datos de consumos de repuestos y genera excel con todos
@@ -224,8 +226,8 @@ def actualizar_repuestos():
     from datetime import datetime
 
     # Muestra en la interfaz de usuario el texto "Working..."
-    label_actualizar_repuestos_procesando.setText("Working...")
-    label_actualizar_repuestos_procesando.adjustSize()
+    #label_actualizar_repuestos_procesando.setText("Working...")
+    #label_actualizar_repuestos_procesando.adjustSize()
 
     # Fecha y año actual
     now = datetime.now()
@@ -239,141 +241,79 @@ def actualizar_repuestos():
     kpis.repuestos.salida_datos.maxr_df2excel()
 
     # Elimina el texto "Working..." de la interfaz de usuario.
-    label_actualizar_repuestos_procesando.setText(" ")
-    label_actualizar_repuestos_procesando.adjustSize()
+    #label_actualizar_repuestos_procesando.setText(" ")
+    #label_actualizar_repuestos_procesando.adjustSize()
 #------------------------------------------------------------------------------
 """ MAIN COMIENZO DEL CODIGO PRINCIPAL DE LA APLICACION"""
-app = QApplication(sys.argv)
-win = QMainWindow()
-win.setGeometry(400,400,500,300)
-win.setWindowTitle("APP-KPI v1.0.1")
 
-tabs = QTabWidget(win)
-tabs.move(5,5)
-tabs.resize(490,250)
-
-####################### Create first tab ######################################
-tab1 = QtWidgets.QWidget()
-tabs.addTab(tab1, "Inf.Diario")
- 
-texto_fecha_ini = QtWidgets.QLabel(tab1)
-texto_fecha_ini.setText("Fecha Inicio:")
-texto_fecha_ini.adjustSize()
-texto_fecha_ini.move(25,25)
-
-fecha_ini = QtWidgets.QDateEdit(tab1)
-fecha_ini.setMinimumDate(QDate(2020, 1, 1))
-fecha_ini.setMaximumDate(QDate(2050, 12, 31))
-fecha_ini.setDate(datetime.datetime.today()-timedelta(1))
-fecha_ini.move(105,15)
-
-texto_fecha_fin = QtWidgets.QLabel(tab1)
-texto_fecha_fin.setText("Fecha Final :")
-texto_fecha_fin.adjustSize()
-texto_fecha_fin.move(25,65)
-
-fecha_fin = QtWidgets.QDateEdit(tab1)
-fecha_fin.setMinimumDate(QDate(2020, 1, 1))
-fecha_fin.setMaximumDate(QDate(2050, 12, 31))
-fecha_fin.setDate(datetime.datetime.today())
-fecha_fin.move(105,55)
-
-groupBox1 = QGroupBox(tab1)
-groupBox1.setTitle("Tipo Informe")
-groupBox1.move(25,105)
-groupBox1.resize(100,100)
-radio_id_estandar = QtWidgets.QRadioButton("Normal")
-radio_id_abierto = QtWidgets.QRadioButton("Ot's abiertas")
-radio_id_error = QtWidgets.QRadioButton("Errores Ot's")
-radio_id_estandar.setChecked(True)
-vbox_groupBox1 = QtWidgets.QVBoxLayout()
-vbox_groupBox1.addWidget(radio_id_estandar)
-vbox_groupBox1.addWidget(radio_id_abierto)
-vbox_groupBox1.addWidget(radio_id_error)
-vbox_groupBox1.addStretch(1)
-groupBox1.setLayout(vbox_groupBox1)
-
-button_informe_diario = QtWidgets.QPushButton(tab1)
-button_informe_diario.clicked.connect(informe_diario)
-button_informe_diario.setText("Informe Diario")
-button_informe_diario.move(250,105)
-button_informe_diario.resize(100,100)
-
-label_informe_diario_procesando = QtWidgets.QLabel(tab1)
-label_informe_diario_procesando.setText(" ")
-label_informe_diario_procesando.adjustSize()
-label_informe_diario_procesando.move(375,150)
-
-####################### Crear segundo tab #####################################
-tab2 = QtWidgets.QWidget()
-tabs.addTab(tab2, "Dat.Eficiencia")
-
-button_sap_datos_hot = QtWidgets.QPushButton(tab2)
-button_sap_datos_hot.clicked.connect(sap_datos_hot)
-button_sap_datos_hot.setText("SAP. Datos Historico OT's")
-button_sap_datos_hot.setToolTip('Actualiza el fichero excel HISTORICO OTS '+\
+class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
+    def __init__(self, *args, **kwargs):
+        QtWidgets.QMainWindow.__init__(self, *args, **kwargs)
+        self.setupUi(self)
+        #Damos nombre a cada objeto en la app
+        #Ventana principal
+        #Título de la ventana
+        self.setWindowTitle("APP-KPI v1.0.0")
+        #Botón para salir de la app
+        self.pushButton_salir.setText("Salir")
+        self.pushButton_salir.clicked.connect(self.close)
+        
+        #Primera pestaña (Inf.Diario)
+        #Título de la pestaña
+        self.tabWidget_principal.setTabText(0, "Inf.Diario")
+        #Etiqueta de fecha inicio
+        self.label_fechainicio.setText("Fecha inicio:")
+        self.dateEdit_fechainicio.setMinimumDate(QDate(2020, 1, 1))
+        self.dateEdit_fechainicio.setMaximumDate(QDate(2050, 12, 31))
+        self.dateEdit_fechainicio.setDate(datetime.datetime.today()-timedelta(1))
+        #Etiqueta de fecha fin
+        self.label_fechafin.setText("Fecha final:")
+        self.dateEdit_fechafin.setMinimumDate(QDate(2020, 1, 1))
+        self.dateEdit_fechafin.setMaximumDate(QDate(2050, 12, 31))
+        self.dateEdit_fechafin.setDate(datetime.datetime.today())
+        #Título y opciones del groupbox
+        self.groupBox_tipoinforme.setTitle("Tipo informe")
+        self.radioButton_informediario.setText("Informe diario")
+        self.radioButton_otsabiertas.setText("OT's abiertas")
+        self.radioButton_erroresot.setText("Errores OT's")
+        #Botón para generar informe
+        self.pushButton_generarinforme.setText("Generar informe")
+        self.pushButton_generarinforme.clicked.connect(informe_diario)
+        
+        #Segunda pestaña (Dat.Eficiencia)
+        #Título de la pestaña
+        self.tabWidget_principal.setTabText(1, "Dat.Eficiencia")
+        #Botón histórico OT's
+        self.pushButton_saphistoricoot.setText("SAP. Datos Histórico OT's")
+        self.pushButton_saphistoricoot.setToolTip('Actualiza el fichero excel HISTORICO OTS '+\
                                 'con los datos bajados de SAP.')
-button_sap_datos_hot.move(25,25)
-button_sap_datos_hot.resize(150,30)
-
-label_sap_datos_hot_procesando = QtWidgets.QLabel(tab2)
-label_sap_datos_hot_procesando.setText(" ")
-label_sap_datos_hot_procesando.adjustSize()
-label_sap_datos_hot_procesando.move(200,30)
-
-button_tiempos_produccion = QtWidgets.QPushButton(tab2)
-button_tiempos_produccion.clicked.connect(tiempos_produccion)
-button_tiempos_produccion.setText("Tiempos de produccion")
-button_tiempos_produccion.setToolTip('Actualiza el fichero excel TIEMPOS '+\
+        self.pushButton_saphistoricoot.clicked.connect(sap_datos_hot)
+        #Botón tiempos de producción
+        self.pushButton_tiemposproduccion.setText("Tiempos de producción") 
+        self.pushButton_tiemposproduccion.setToolTip('Actualiza el fichero excel TIEMPOS '+\
                       'PRODUCCION con los datos manuales registrados en el '+\
                       'archivo CALENDARIOS.')
-button_tiempos_produccion.move(25,75)
-button_tiempos_produccion.resize(150,30)
+        self.pushButton_tiemposproduccion.clicked.connect(tiempos_produccion)   
 
-label_tiempos_produccion_procesando = QtWidgets.QLabel(tab2)
-label_tiempos_produccion_procesando.setText(" ")
-label_tiempos_produccion_procesando.adjustSize()
-label_tiempos_produccion_procesando.move(200,80)
+        #Tercera pestaña (Costes)
+        #Título de la pestaña
+        self.tabWidget_principal.setTabText(2, "Costes")
+        #Botón actualizar costes
+        self.pushButton_actualizarcostes.setText("Actualizar costes")
+        self.pushButton_actualizarcostes.setToolTip('Extrae de SAP los datos de costes y '+\
+                                     'actualiza el fichero de costes. Después '+\
+                                     'hay que actualizar manualmente el archivo en Drive')
+        self.pushButton_actualizarcostes.clicked.connect(actualizar_costes)
+        #Botón actualizar repuestos
+        self.pushButton_actualizarrepuestos.setText("Actualizar repuestos")
+        self.pushButton_actualizarrepuestos.setToolTip('Extrae de SAP los datos de consumo '+\
+                                     'de repuestos y actualiza el fichero. Después '+\
+                                     'hay que actualizar manualmente el archivo en Drive')
+        self.pushButton_actualizarrepuestos.clicked.connect(actualizar_repuestos)
+        
 
-######################## Crear tercer tab #####################################
-tab3 = QtWidgets.QWidget()
-tabs.addTab(tab3, "Costes")
-
-button_actualizar_costes = QtWidgets.QPushButton(tab3)
-button_actualizar_costes.clicked.connect(actualizar_costes)
-button_actualizar_costes.setText("Actualizar Costes")
-button_actualizar_costes.setToolTip('Extrae de SAP los datos de costes y '+\
-                                    'actualiza el fichero de costes. Después '+\
-                                    'hay que actualizar manualmente el archivo en Drive')
-button_actualizar_costes.move(25,25)
-button_actualizar_costes.resize(150,30)
-
-label_actualizar_costes_procesando = QtWidgets.QLabel(tab3)
-label_actualizar_costes_procesando.setText(" ")
-label_actualizar_costes_procesando.adjustSize()
-label_actualizar_costes_procesando.move(200,27)
-
-button_actualizar_repuestos = QtWidgets.QPushButton(tab3)
-button_actualizar_repuestos.clicked.connect(actualizar_repuestos)
-button_actualizar_repuestos.setText("Actualizar Repuestos")
-button_actualizar_repuestos.setToolTip('Extrae de SAP los datos de consumo '+\
-                                    'de repuestos y actualiza el fichero. Después '+\
-                                    'hay que actualizar manualmente el archivo en Drive')
-button_actualizar_repuestos.move(25,75)
-button_actualizar_repuestos.resize(150,30)
-
-label_actualizar_repuestos_procesando = QtWidgets.QLabel(tab3)
-label_actualizar_repuestos_procesando.setText(" ")
-label_actualizar_repuestos_procesando.adjustSize()
-label_actualizar_repuestos_procesando.move(200,77)
-
-###############################################################################
-button_exit = QtWidgets.QPushButton(win)
-button_exit.clicked.connect(win.close)
-button_exit.setText("Salir")
-button_exit.resize(60,30)
-button_exit.move(430,260)
- 
-win.show()
-sys.exit(app.exec_())
-#------------------------------------------------------------------------------     
+if __name__ == "__main__":
+    app = QtWidgets.QApplication([])
+    window = MainWindow()
+    window.show()
+    app.exec_()

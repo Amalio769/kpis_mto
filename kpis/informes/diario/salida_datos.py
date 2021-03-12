@@ -118,7 +118,7 @@ def procesar_informe(file_path,file_name_woe,fecha_ini,fecha_fin,\
        t_html=cfg.HTML_ID["TABLA"]
        t_html=t_html.replace("{01}", str(row["Orden"]))
        t_html=t_html.replace("{02}", row["Ubicación_técnica"])
-       t_html=t_html.replace("{03}", row["Equipo"]+'-'+\
+       t_html=t_html.replace("{03}", str(row["Equipo"])+'-'+\
                                      row["Denominación_objeto"])
        t_html=t_html.replace("{04}", row["Status_de_sistema"])
        t_html=t_html.replace("{05}", "Fecha Ent/Ini/Fin")

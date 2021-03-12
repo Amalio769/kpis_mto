@@ -144,7 +144,8 @@ def me2k_year(year):
     import kpis.configuracion.config as cfg
     import pandas as pd
 
-    df_ceco = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', sheet_name='ceco')
+    #TODO: Actualizar versión Pandas para añadir parámetro sheet_name en lugar de llamar a la hoja de Excel
+    df_ceco = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', 'ceco')
     for row in df_ceco.itertuples():
         me2k(year,\
              ceco = str(row.ceco),\
@@ -153,7 +154,7 @@ def me2k_year(year):
              fecha_documento_desde = '01.10.' + str(year - 1),\
              fecha_documento_hasta = '31.12.' + str(year))
 
-    df_orden = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', sheet_name='orden')
+    df_orden = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', 'orden')
     for row in df_orden.itertuples():
         me2k(year,\
              orden = str(row.orden),\
@@ -162,7 +163,7 @@ def me2k_year(year):
              fecha_documento_desde = '01.10.' + str(year - 1),\
              fecha_documento_hasta = '31.12.' + str(year))
 
-    df_pep = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', sheet_name='pep')
+    df_pep = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', 'pep')
     for row in df_pep.itertuples():
         me2k(year,\
              pep = str(row.pep),\

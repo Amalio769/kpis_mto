@@ -321,7 +321,8 @@ def me2ktxt2df_year(year, tipo_me2k):
     if tipo_me2k == 'ceco':
         path = cfg.PATH_COSTES_CECO
         datos_df = pd.DataFrame()
-        df_ceco = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', sheet_name='ceco')
+        #TODO: version Pandas, cambiar parámetro sheet_name
+        df_ceco = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', 'ceco')
         for row in df_ceco.itertuples():
             temp_df = me2ktxt2df(path + str(year) + '-' + \
                                  str(row.ceco).replace('/', '-') + \
@@ -332,7 +333,9 @@ def me2ktxt2df_year(year, tipo_me2k):
     if tipo_me2k == 'orden':
         path = cfg.PATH_COSTES_ORDEN
         datos_df = pd.DataFrame()
-        df_orden = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', sheet_name='orden')
+        #TODO: version Pandas, cambiar parámetro sheet_name
+
+        df_orden = pd.read_excel(cfg.PATH_COSTES_CONFIGURACION + str(year) + '.xlsx', 'orden')
         for row in df_orden.itertuples():
             temp_df = me2ktxt2df(path + str(year) + '-' + \
                                  str(row.orden).replace('/', '-') + \
