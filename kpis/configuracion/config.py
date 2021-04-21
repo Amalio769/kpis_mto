@@ -158,8 +158,12 @@ HTML_ID={'CABECERA': """<!DOCTYPE html>
                       border: 1px solid black;
                       border-collapse: collapse;
                     }
-                    th, td {
+                    th {
                       padding: 5px;
+                      text-align: center;
+                    }
+                    td { 
+                      padding: 5px 10px;
                       text-align: center;
                     }
                     h2, img {
@@ -195,7 +199,7 @@ HTML_ID={'CABECERA': """<!DOCTYPE html>
                       <tr>
                         <td rowspan="2", style="font-size: 30px; color:{COLOR_TIPO_TRABAJO}">{11}</td>
                         <td rowspan="2", style="color:{COLOR_GENERAL}">{12}</td>
-                        <td rowspan="3", style="border-bottom: 4px solid #000; color:{COLOR_GENERAL}">{13}</td>
+                        <td rowspan="3", style="border-bottom: 4px solid #000; color:{COLOR_GENERAL}">{13}</td> 
                         <td style="color:{COLOR_GENERAL}">{15}</td>
                         <td style="color:{COLOR_GENERAL}">{16}</td>
                         <td rowspan="3", style="font-size: 30px; color:{COLOR_HORA_PARADA}; border-bottom: 4px solid #000">{17}</td>
