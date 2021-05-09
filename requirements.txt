@@ -2,3 +2,5 @@ numpy==1.19.5
 pandas==1.0.5
 pyqt==5.12.3
 pywin32==300
+openpyxl==3.0.0
+xlrd==1.2.0

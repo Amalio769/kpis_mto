@@ -68,7 +68,7 @@ def coste_po_grafo_year(year):
     df1['po_grafo'] = round(df1['po_grafo'], 0)
     df1['po_grafo'] = df1['po_grafo'].astype(str)
     #TODO: regex=False no soportado en version Pandas 0.19, nuevo desde version 0.23.0
-    df1['po_grafo'] = df1['po_grafo'].str.replace('.0', '')
+    df1['po_grafo'] = df1['po_grafo'].str.replace('.0', '', regex=False)
     df1['ceco'] = df1['ceco'].astype(str)
 
 

@@ -17,6 +17,7 @@ import kpis.informes.diario.salida_datos as ids
 import kpis.sap.zpm_report_mwo as sap
 import kpis.configuracion.config as cfg
 import webbrowser as wb
+import pandas as pd
 
 
 def informe_diario():
@@ -253,7 +254,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         #Damos nombre a cada objeto en la app
         #Ventana principal
         #Título de la ventana
-        self.setWindowTitle("APP-KPI v1.1.1")
+        self.setWindowTitle("APP-KPI v1.1.2")
         #Botón para salir de la app
         self.pushButton_salir.setText("Salir")
         self.pushButton_salir.clicked.connect(self.close)
@@ -295,22 +296,22 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                       'archivo CALENDARIOS.')
         self.pushButton_tiemposproduccion.clicked.connect(tiempos_produccion)   
 
-        #Tercera pestaña (Costes)
-        #Título de la pestaña
+        # Tercera pestaña (Costes)
+        # Título de la pestaña
         self.tabWidget_principal.setTabText(2, "Costes")
-        #Botón actualizar costes
+        # Botón actualizar costes
         self.pushButton_actualizarcostes.setText("Actualizar costes")
         self.pushButton_actualizarcostes.setToolTip('Extrae de SAP los datos de costes y '+\
                                      'actualiza el fichero de costes. Después '+\
                                      'hay que actualizar manualmente el archivo en Drive')
         self.pushButton_actualizarcostes.clicked.connect(actualizar_costes)
-        #Botón actualizar repuestos
+        # Botón actualizar repuestos
         self.pushButton_actualizarrepuestos.setText("Actualizar repuestos")
         self.pushButton_actualizarrepuestos.setToolTip('Extrae de SAP los datos de consumo '+\
                                      'de repuestos y actualiza el fichero. Después '+\
                                      'hay que actualizar manualmente el archivo en Drive')
         self.pushButton_actualizarrepuestos.clicked.connect(actualizar_repuestos)
-        
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])

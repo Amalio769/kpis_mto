@@ -45,7 +45,7 @@ def procesar_informe(file_path,file_name_woe,fecha_ini,fecha_fin,\
    # Crea un dataframe leyendo el archivo file_name
    df_archivoCsv=pd.read_csv(file_path + file_name_woe + '.csv',\
                              sep=';', header=0, na_values="",\
-                             encoding='latin_1', engine='python')
+                             encoding='latin_1',engine='python')
    # Elimina los espacios en blanco de los nombres de columna
    df_archivoCsv.columns = df_archivoCsv.columns.str.replace(' ','_')
    # Crea una vista del df original, con los campos necesarios para la 
@@ -88,7 +88,7 @@ def procesar_informe(file_path,file_name_woe,fecha_ini,fecha_fin,\
                         & ~vistaID['Status_de_sistema'].str.contains('CTEC','CERR')]
        # Ordenar los datos por Orden, Ubi.Técnica y Equipo
        vistaID = vistaID.sort_values(by=['Orden','Ubicación_técnica',\
-                                         'Equipo'])   
+                                         'Equipo'])
        
    # Filtro para obtener dataframe con ot's de averias cerradas y con errores
    if tipo_reporte == cfg.ID_ERRORES:
@@ -102,7 +102,7 @@ def procesar_informe(file_path,file_name_woe,fecha_ini,fecha_fin,\
        # Ordenar los datos por Orden, Ubi.Técnica y Equipo
        vistaID = vistaID.sort_values(by=['Orden','Ubicación_técnica',\
                                          'Equipo'])                 
-   
+
    # Utilizando una plantilla de HTML crea una página web con una tabla que 
    # contiene toda la información del reporte. A continuación se itera el df y
    # se sustituyen los códigos de cada celda por el valor correspondiente del
@@ -118,8 +118,7 @@ def procesar_informe(file_path,file_name_woe,fecha_ini,fecha_fin,\
        t_html=cfg.HTML_ID["TABLA"]
        t_html=t_html.replace("{01}", str(row["Orden"]))
        t_html=t_html.replace("{02}", str(row["Ubicación_técnica"]))
-       t_html=t_html.replace("{03}", str(row["Equipo"])+'-'+\
-                                     str(row["Denominación_objeto"]))
+       t_html=t_html.replace("{03}", str(row["Equipo"])+'-'+ str(row["Denominación_objeto"]))
        t_html=t_html.replace("{04}", str(row["Status_de_sistema"]))
        t_html=t_html.replace("{05}", "Fecha Ent/Ini/Fin")
        t_html=t_html.replace("{07}", "H.Par.")
@@ -127,7 +126,6 @@ def procesar_informe(file_path,file_name_woe,fecha_ini,fecha_fin,\
        t_html=t_html.replace("{09}", "T.Resol")
        t_html=t_html.replace("{010}", "T.Aver")
        t_html=t_html.replace("{011}", "T.Tot")
-       
        t_html=t_html.replace("{11}", row["Tipo_de_trabajo"])
        t_html=t_html.replace("{12}", str(row["Texto_largo"]))
        t_html=t_html.replace("{13}", str(row["Resolución_avería"]))
@@ -138,26 +136,28 @@ def procesar_informe(file_path,file_name_woe,fecha_ini,fecha_fin,\
        t_html=t_html.replace("{19}", str(round(row["Sumatorio_horas_status_TMPO"]-row["Tiempo_Respuest"],2)))
        t_html=t_html.replace("{110}", str(round(row["Sumatorio_horas_status_TMPO"],2)))
        t_html=t_html.replace("{111}", str(round(row["Tiempo_Total"],2)))
-       
        t_html=t_html.replace("{25}", row["Fecha_inicio"])
        t_html=t_html.replace("{26}", row["Hora_inicio"])
        t_html=t_html.replace("{28}", "T.CPLA")
        t_html=t_html.replace("{29}", "T.PMAT")
        t_html=t_html.replace("{210}", "T.PSUP")
        t_html=t_html.replace("{211}", "C.Mat")
-       
        t_html=t_html.replace("{31}", str(row["Problema"]))
        t_html=t_html.replace("{34}", row["Status_de_usuario"])
        t_html=t_html.replace("{35}", row["F._Cierre_Tecnico"])
        t_html=t_html.replace("{36}", row["Hora_Cierre_Técnico"])
-       t_html=t_html.replace("{38}",\
-                             str(round(row["Sumatorio_Horas_status_CPLA"],2)))
-       t_html=t_html.replace("{39}",\
-                             str(round(row["Sumatorio_Horas_status_PMAT"],2)))
-       t_html=t_html.replace("{310}",\
-                             str(round(row["Sumatorio_Horas_status_PSUP"],2)))
-       t_html=t_html.replace("{311}",\
-                             str(round(row["Coste_M."],2)))
+       t_html=t_html.replace("{38}", str(round(row["Sumatorio_Horas_status_CPLA"],2)))
+       t_html=t_html.replace("{39}", str(round(row["Sumatorio_Horas_status_PMAT"],2)))
+       t_html=t_html.replace("{310}", str(round(row["Sumatorio_Horas_status_PSUP"],2)))
+
+       # Por motivos que desconozco cuando en la descarga del fichero de SAP hay algún dato erróneo en la columna
+       # de Coste_M. la considera como string, en caso de que los datos sean correctos se bajan como float.
+       # Por ese motivo en el código que sigue a continuación se analiza si dicho campo es str o float.
+       if type(row["Coste_M."]) == str:
+           t_html = t_html.replace("{311}", row["Coste_M."])
+       if type(row["Coste_M."]) == float:
+           t_html = t_html.replace("{311}", str(round(row["Coste_M."],2)))
+
        # Si la OT ha sido cancelada toda la linea se pone en gris
        if row["Status_de_usuario"].find('CACL') != -1:
            t_html=t_html.replace("{COLOR_TIPO_TRABAJO}","lightgray")
@@ -192,11 +192,11 @@ def procesar_informe(file_path,file_name_woe,fecha_ini,fecha_fin,\
        t_html=t_html.replace("{COLOR_HORA_PARADA}","black")
        t_html=t_html.replace("{COLOR_PROBLEMA}","blue")
        t_html=t_html.replace("{COLOR_GENERAL}","black")
-       
+
        texto_html.append(t_html)
    texto_html.append(cfg.HTML_ID["PIE"])
    
-   
+
    # Creación del archivo html a partir de los datos procesasos anteriormente.
    f=open(file_path + file_name_woe + '.html',"w")
    f.write("".join(texto_html))
