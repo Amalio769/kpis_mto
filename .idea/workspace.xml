@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a9a1d260-303e-4afa-8d3b-9fcf76912fb9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/kpis/tests/test_adh_mp.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kpis/informes/mp/salida_datos.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kpis/tests/test_ratio_mc_mp.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kpis/configuracion/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/kpis/configuracion/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kpis/informes/adhmp/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/kpis/informes/mp/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kpis/tests/test_adh_mp.py" beforeDir="false" afterPath="$PROJECT_DIR$/kpis/tests/test_adh_mp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.ui" beforeDir="false" afterPath="$PROJECT_DIR$/main.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_ui.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_ui_backup.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,31 +24,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/kpis/tests/test_adh_mp.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="96" column="16" selection-start-line="96" selection-start-column="16" selection-end-line="96" selection-end-column="16" />
-              <folding>
-                <element signature="e#72#91#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/kpis/configuracion/config.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="31" column="22" lean-forward="true" selection-start-line="31" selection-end-line="31" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="704">
-              <caret line="211" column="65" lean-forward="true" selection-start-line="210" selection-start-column="4" selection-end-line="211" selection-end-column="65" />
+            <state relative-caret-position="7238">
+              <caret line="329" lean-forward="true" selection-start-line="329" selection-end-line="329" />
               <folding>
                 <element signature="e#86#113#0" expanded="true" />
               </folding>
@@ -66,6 +51,9 @@
       <find>V1.1.1</find>
       <find>]]</find>
     </findStrings>
+    <dirStrings>
+      <dir>C:\Users\c48142\Repositories\kpis-mto\kpis_mto\kpis\informes\adhmp</dir>
+    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -91,11 +79,12 @@
         <option value="$PROJECT_DIR$/kpis/informes/costes/salida_datos.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/kpis/tests/test.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/kpis/informes/diario/salida_datos.py" />
-        <option value="$PROJECT_DIR$/kpis/informes/adhmp/salida_datos.py" />
         <option value="$PROJECT_DIR$/kpis/configuracion/config.py" />
         <option value="$PROJECT_DIR$/kpis/tests/test_adh_mp.py" />
+        <option value="$PROJECT_DIR$/kpis/tests/test_ratio_mc_mp.py" />
+        <option value="$PROJECT_DIR$/kpis/informes/adhmp/salida_datos.py" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
@@ -117,69 +106,6 @@
               <item name="kpis_mto" type="b2602c69:ProjectViewProjectNode" />
               <item name="kpis_mto" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="kpis_mto" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kpis_mto" type="462c0819:PsiDirectoryNode" />
-              <item name="kpis" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kpis_mto" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kpis_mto" type="462c0819:PsiDirectoryNode" />
-              <item name="kpis" type="462c0819:PsiDirectoryNode" />
-              <item name="configuracion" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kpis_mto" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kpis_mto" type="462c0819:PsiDirectoryNode" />
-              <item name="kpis" type="462c0819:PsiDirectoryNode" />
-              <item name="informes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kpis_mto" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kpis_mto" type="462c0819:PsiDirectoryNode" />
-              <item name="kpis" type="462c0819:PsiDirectoryNode" />
-              <item name="informes" type="462c0819:PsiDirectoryNode" />
-              <item name="adhmp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kpis_mto" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kpis_mto" type="462c0819:PsiDirectoryNode" />
-              <item name="kpis" type="462c0819:PsiDirectoryNode" />
-              <item name="informes" type="462c0819:PsiDirectoryNode" />
-              <item name="costes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kpis_mto" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kpis_mto" type="462c0819:PsiDirectoryNode" />
-              <item name="kpis" type="462c0819:PsiDirectoryNode" />
-              <item name="informes" type="462c0819:PsiDirectoryNode" />
-              <item name="diario" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kpis_mto" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kpis_mto" type="462c0819:PsiDirectoryNode" />
-              <item name="kpis" type="462c0819:PsiDirectoryNode" />
-              <item name="informes" type="462c0819:PsiDirectoryNode" />
-              <item name="eficiencia" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kpis_mto" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kpis_mto" type="462c0819:PsiDirectoryNode" />
-              <item name="kpis" type="462c0819:PsiDirectoryNode" />
-              <item name="repuestos" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kpis_mto" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kpis_mto" type="462c0819:PsiDirectoryNode" />
-              <item name="kpis" type="462c0819:PsiDirectoryNode" />
-              <item name="sap" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kpis_mto" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kpis_mto" type="462c0819:PsiDirectoryNode" />
-              <item name="kpis" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -190,7 +116,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="C:/ProgramData/Anaconda3/_conda.exe" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Python" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -213,41 +139,17 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.test_adh_mp">
+  <component name="RunManager" selected="Python.main">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="kpis_mto" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="test_actualizar_total_costes" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="kpis_mto" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/kpis/tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/kpis/tests/test_actualizar_total_costes.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -295,6 +197,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test_ratio_mc_mp" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="kpis_mto" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/kpis/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/kpis/tests/test_ratio_mc_mp.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="pytest in test_actualizar_total_costes.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="kpis_mto" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -312,8 +235,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test_adh_mp" />
-        <item itemvalue="Python.test_adh_mp" />
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.test_adh_mp" />
         <item itemvalue="Python.test_adh_mp" />
         <item itemvalue="Python.test_adh_mp" />
@@ -355,7 +278,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620592978266</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="16-MAYO-2021. MODIFICACIONES PARA CALCULO DE ADHERENCIA MP">
+      <created>1621179071913</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1621179071914</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -374,9 +304,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.50248754" visible="true" weight="0.24077977" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.50248754" visible="true" weight="0.23972602" />
       <window_info id="Structure" order="1" sideWeight="0.49751243" side_tool="true" weight="0.24130663" />
       <window_info id="Favorites" order="2" sideWeight="0.50222224" side_tool="true" weight="0.24413647" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -387,9 +316,9 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49947312" weight="0.32916668" />
-      <window_info anchor="bottom" x="1609" y="37" width="1278" height="237" id="Terminal" order="8" sideWeight="0.49841937" weight="0.32894737" />
+      <window_info anchor="bottom" x="1609" y="37" width="1278" height="237" id="Terminal" order="8" sideWeight="0.49841937" weight="0.7397959" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5021075" side_tool="true" weight="0.3611111" />
-      <window_info anchor="bottom" x="856" y="305" width="207" height="430" id="Python Console" order="10" sideWeight="0.5015806" side_tool="true" visible="true" weight="0.43444446" />
+      <window_info anchor="bottom" x="848" y="511" width="224" height="39" id="Python Console" order="10" sideWeight="0.5015806" side_tool="true" weight="0.6622222" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -458,7 +387,8 @@
     <MESSAGE value="Agrupamiento y pivot del resultado total del dataframe" />
     <MESSAGE value="Bug resuelto: grafo es guardado como string y el &quot;.0&quot; adicional&#10;Flujo correcto de programa con la respuesta del pop-up de aviso, preguntando si está SAP abierto." />
     <MESSAGE value="Se definen requerimientos para estandarizar el entorno de trabajo appkpimto.&#10;Con la selección correcta de la versión de python, pandas, etc, se solucionan los problemas&#10;de formato de los datos y el orden de las columnas&#10;Resuelto el problema del informe diario provocado por la importación aleatorio de datos como str o&#10;float." />
-    <option name="LAST_COMMIT_MESSAGE" value="Se definen requerimientos para estandarizar el entorno de trabajo appkpimto.&#10;Con la selección correcta de la versión de python, pandas, etc, se solucionan los problemas&#10;de formato de los datos y el orden de las columnas&#10;Resuelto el problema del informe diario provocado por la importación aleatorio de datos como str o&#10;float." />
+    <MESSAGE value="16-MAYO-2021. MODIFICACIONES PARA CALCULO DE ADHERENCIA MP" />
+    <option name="LAST_COMMIT_MESSAGE" value="16-MAYO-2021. MODIFICACIONES PARA CALCULO DE ADHERENCIA MP" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/kpis/tests/test_actualizar_excel_grafos.py">
@@ -575,13 +505,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kpis/sap/zpm_report_mwo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3141">
-          <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/kpis/tests/test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="66">
@@ -589,18 +512,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kpis/informes/adhmp/salida_datos.py" />
     <entry file="file://$USER_HOME$/.conda/envs/appkpimto/Lib/site-packages/pandas/io/excel/_base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="270" column="4" selection-start-line="270" selection-start-column="4" selection-end-line="270" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kpis/informes/costes/salida_datos.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" selection-start-line="12" selection-end-line="12" selection-end-column="43" />
         </state>
       </provider>
     </entry>
@@ -611,20 +526,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kpis/informes/costes/preparacion_datos.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6842">
-          <caret line="70" column="4" selection-start-line="70" selection-start-column="4" selection-end-line="70" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kpis/informes/diario/preparacion_datos.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="63" column="25" selection-start-line="63" selection-start-column="25" selection-end-line="63" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/kpis/informes/eficiencia/preparacion_datos.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1453">
@@ -632,36 +533,94 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kpis/informes/diario/salida_datos.py">
+    <entry file="file://$PROJECT_DIR$/kpis/informes/diario/preparacion_datos.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="152" column="1" selection-start-line="152" selection-start-column="1" selection-end-line="152" selection-end-column="1" />
+        <state relative-caret-position="1386">
+          <caret line="63" column="25" selection-start-line="63" selection-start-column="25" selection-end-line="63" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
+    <entry file="file://$PROJECT_DIR$/kpis/informes/diario/salida_datos.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="704">
-          <caret line="211" column="65" lean-forward="true" selection-start-line="210" selection-start-column="4" selection-end-line="211" selection-end-column="65" />
-          <folding>
-            <element signature="e#86#113#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="418">
+          <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kpis/sap/zpm_report_mwo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/kpis/configuracion/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="31" column="22" lean-forward="true" selection-start-line="31" selection-end-line="31" selection-end-column="22" />
+        <state relative-caret-position="286">
+          <caret line="31" column="13" lean-forward="true" selection-start-line="31" selection-end-line="31" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kpis/informes/costes/preparacion_datos.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2618">
+          <caret line="70" column="4" selection-start-line="70" selection-start-column="4" selection-end-line="70" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kpis/informes/costes/salida_datos.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="12" selection-start-line="12" selection-end-line="12" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kpis/tests/test_ratio_mc_mp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1354">
+          <caret line="76" column="38" lean-forward="true" selection-start-line="42" selection-end-line="85" selection-end-column="74" />
+          <folding>
+            <element signature="e#71#90#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/kpis/tests/test_adh_mp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="96" column="16" selection-start-line="96" selection-start-column="16" selection-end-line="96" selection-end-column="16" />
+        <state relative-caret-position="34">
+          <caret line="162" column="15" selection-start-line="162" selection-start-column="15" selection-end-line="162" selection-end-column="15" />
           <folding>
             <element signature="e#72#91#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_ui_backup.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_ui.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="65" column="41" lean-forward="true" selection-start-line="65" selection-start-column="41" selection-end-line="65" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kpis/informes/mp/salida_datos.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-948">
+          <caret line="151" column="13" selection-start-line="151" selection-start-column="13" selection-end-line="151" selection-end-column="13" />
+          <folding>
+            <element signature="e#71#90#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7238">
+          <caret line="329" lean-forward="true" selection-start-line="329" selection-end-line="329" />
+          <folding>
+            <element signature="e#86#113#0" expanded="true" />
           </folding>
         </state>
       </provider>

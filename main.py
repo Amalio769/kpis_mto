@@ -153,6 +153,22 @@ def tiempos_produccion():
     #label_tiempos_produccion_procesando.setText(" ")
     #label_tiempos_produccion_procesando.adjustSize()
 #------------------------------------------------------------------------------
+def actualizar_adherencia_mp():
+    """
+    Actualiza el KPI de Adherencia de Mantenimiento Preventivo
+    """
+    import kpis.informes.mp.salida_datos as mp
+
+    mp.kpi_adh_mto()
+#------------------------------------------------------------------------------
+def actualizar_ratio_mp_mc():
+    """
+    Actualiza el KPI de Ratio MP/MC
+    """
+    import kpis.informes.mp.salida_datos as mp
+
+    mp.kpi_ratio_mp_mc()
+#------------------------------------------------------------------------------
 def actualizar_costes():
     """Extrae de SAP los datos de costes y actualiza el archivo excel
 
@@ -254,7 +270,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         #Damos nombre a cada objeto en la app
         #Ventana principal
         #Título de la ventana
-        self.setWindowTitle("APP-KPI v1.1.2")
+        self.setWindowTitle("APP-KPI v1.1.3")
         #Botón para salir de la app
         self.pushButton_salir.setText("Salir")
         self.pushButton_salir.clicked.connect(self.close)
@@ -294,11 +310,27 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_tiemposproduccion.setToolTip('Actualiza el fichero excel TIEMPOS '+\
                       'PRODUCCION con los datos manuales registrados en el '+\
                       'archivo CALENDARIOS.')
-        self.pushButton_tiemposproduccion.clicked.connect(tiempos_produccion)   
+        self.pushButton_tiemposproduccion.clicked.connect(tiempos_produccion)
 
-        # Tercera pestaña (Costes)
+        # Tercera pestaña (Mantenimiento)
         # Título de la pestaña
-        self.tabWidget_principal.setTabText(2, "Costes")
+        self.tabWidget_principal.setTabText(2, "MP")
+        # Botón KPI adherencia MP
+        self.pushButton_adherencia_mp.setText("KPI ADH MP")
+        self.pushButton_adherencia_mp.setToolTip('Con los datos del fichero Historico OTs calcula el KPI de ' + \
+                                                    'Adherencia de Mantenimiento Preventivo. Después ' + \
+                                                    'hay que actualizar manualmente el archivo en Drive')
+        self.pushButton_adherencia_mp.clicked.connect(actualizar_adherencia_mp)
+        # Botón KPI Ratio MP/MC
+        self.pushButton_ratio_mp_mc.setText("KPI RATIO MP/MC")
+        self.pushButton_ratio_mp_mc.setToolTip('Con los datos del fichero Historico OTs calcula el KPI de ' + \
+                                                 'Ratio MP/MC. Después ' + \
+                                                 'hay que actualizar manualmente el archivo en Drive')
+        self.pushButton_ratio_mp_mc.clicked.connect(actualizar_ratio_mp_mc)
+
+        # Cuarta pestaña (Costes)
+        # Título de la pestaña
+        self.tabWidget_principal.setTabText(3, "Costes")
         # Botón actualizar costes
         self.pushButton_actualizarcostes.setText("Actualizar costes")
         self.pushButton_actualizarcostes.setToolTip('Extrae de SAP los datos de costes y '+\
