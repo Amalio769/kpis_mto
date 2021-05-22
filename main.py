@@ -270,7 +270,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         #Damos nombre a cada objeto en la app
         #Ventana principal
         #Título de la ventana
-        self.setWindowTitle("APP-KPI v1.1.3")
+        self.setWindowTitle("APP-KPI v1.1.4")
         #Botón para salir de la app
         self.pushButton_salir.setText("Salir")
         self.pushButton_salir.clicked.connect(self.close)
