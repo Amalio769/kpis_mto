@@ -2,7 +2,7 @@
 
 Creado por: Maria José Tocino & Amalio Rete Campos
 
-Última versión: V1.1.4
+Última versión: V1.1.5
 
 ## *REQUISITOS DE INSTALACIÓN*
 
