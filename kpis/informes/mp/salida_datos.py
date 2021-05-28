@@ -57,7 +57,8 @@ def get_duracion_dias_ot_mp(fecha_ref, tipo_exc, status, fecha_inicio_extrema, f
         if status == 'CTEC' or status == 'CACL':
             duracion_ot = (fecha_cierre_tecnico - fecha_inicio_extrema).days
         else:
-            duracion_ot = (fecha_ref - fecha_inicio_extrema).days
+            duracion_ot = np.nan
+            #duracion_ot = (fecha_ref - fecha_inicio_extrema).days
     else:
         duracion_ot = np.nan
     return duracion_ot
