@@ -261,6 +261,16 @@ def actualizar_repuestos():
     #label_actualizar_repuestos_procesando.setText(" ")
     #label_actualizar_repuestos_procesando.adjustSize()
 #------------------------------------------------------------------------------
+def actualizar_adherencia_mc():
+    """Extrae del fichero HISTORICO_OTS los datos necesarios para el calculo
+
+    de la adherencia de correctivos."""
+
+    import kpis.informes.mc.salida_datos
+
+    kpis.informes.mc.salida_datos.kpi_adh_mc()
+
+#------------------------------------------------------------------------------
 """ MAIN COMIENZO DEL CODIGO PRINCIPAL DE LA APLICACION"""
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -270,7 +280,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         #Damos nombre a cada objeto en la app
         #Ventana principal
         #Título de la ventana
-        self.setWindowTitle("APP-KPI v1.1.5")
+        self.setWindowTitle("APP-KPI v1.2.0")
         #Botón para salir de la app
         self.pushButton_salir.setText("Salir")
         self.pushButton_salir.clicked.connect(self.close)
@@ -343,6 +353,16 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                                      'de repuestos y actualiza el fichero. Después '+\
                                      'hay que actualizar manualmente el archivo en Drive')
         self.pushButton_actualizarrepuestos.clicked.connect(actualizar_repuestos)
+
+        # Quinta pestaña (Adherencia MC)
+        # Título de la pestaña
+        self.tabWidget_principal.setTabText(4, "Adherencia MC")
+        # Botón actualizar adherencia correctivo
+        self.pushButton_adherencia_mc.setText("Actualizar Adherencia MC")
+        self.pushButton_adherencia_mc.setToolTip('Extrae del historico de OTs los datos de las '+\
+                                                 'ordenes de trabajo de correctivo para actualizar '+\
+                                                 'el dato de adherencia de correctivo')
+        self.pushButton_adherencia_mc.clicked.connect(actualizar_adherencia_mc)
 
 
 if __name__ == "__main__":

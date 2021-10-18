@@ -81,6 +81,12 @@ class Ui_MainWindow(object):
         self.pushButton_actualizarrepuestos.setGeometry(QtCore.QRect(20, 80, 361, 31))
         self.pushButton_actualizarrepuestos.setObjectName("pushButton_actualizarrepuestos")
         self.tabWidget_principal.addTab(self.tab_costes, "")
+        self.tab_adh_mc = QtWidgets.QWidget()
+        self.tab_adh_mc.setObjectName("tab_adh_mc")
+        self.pushButton_adherencia_mc = QtWidgets.QPushButton(self.tab_adh_mc)
+        self.pushButton_adherencia_mc.setGeometry(QtCore.QRect(20, 30, 321, 51))
+        self.pushButton_adherencia_mc.setObjectName("pushButton_adherencia_mc")
+        self.tabWidget_principal.addTab(self.tab_adh_mc, "")
         self.pushButton_salir = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_salir.setGeometry(QtCore.QRect(330, 300, 75, 23))
         self.pushButton_salir.setObjectName("pushButton_salir")
@@ -94,7 +100,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget_principal.setCurrentIndex(2)
+        self.tabWidget_principal.setCurrentIndex(4)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -117,6 +123,8 @@ class Ui_MainWindow(object):
         self.pushButton_actualizarcostes.setText(_translate("MainWindow", "PushButton"))
         self.pushButton_actualizarrepuestos.setText(_translate("MainWindow", "PushButton"))
         self.tabWidget_principal.setTabText(self.tabWidget_principal.indexOf(self.tab_costes), _translate("MainWindow", "Page"))
+        self.pushButton_adherencia_mc.setText(_translate("MainWindow", "PushButton"))
+        self.tabWidget_principal.setTabText(self.tabWidget_principal.indexOf(self.tab_adh_mc), _translate("MainWindow", "Page"))
         self.pushButton_salir.setText(_translate("MainWindow", "PushButton"))
 
 
